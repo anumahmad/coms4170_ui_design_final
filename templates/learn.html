@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="story">
+    <h2>What is the Offside Rule?</h2>
+    <p>If you’ve ever watched a football match, you’ve probably heard the term “offside” thrown around...</p>
+</section>
+
+<section class="story">
+    <img src="{{ url_for('static', filename='pdf_images/page_1_img_1.jpeg') }}" alt="VAR joke" />
+</section>
+
+<section class="story">
+    <h3>Why does the rule exist?</h3>
+    <p>It prevents players from just waiting near the goal for an easy score. It's meant to keep the game fair and strategic.</p>
+</section>
+
+<section class="story">
+    <img src="{{ url_for('static', filename='pdf_images/page_3_img_1.jpeg') }}" alt="Offside diagram" />
+    <p>A player is offside if they’re closer to the opponent’s goal than the ball and second-last defender when the ball is played.</p>
+</section>
+
+<section class="story">
+    <img src="{{ url_for('static', filename='pdf_images/page_4_img_1.jpeg') }}" alt="Second-last defender" />
+    <p>Offside depends on your position and timing. It's about when the ball is passed — not when it's received.</p>
+</section>
+
+<section class="story">
+    <img src="{{ url_for('static', filename='pdf_images/page_5_img_1.jpeg') }}" alt="Player in own half" />
+    <p>You can't be offside in your own half!</p>
+</section>
+
+<section class="story">
+    <img src="{{ url_for('static', filename='pdf_images/page_5_img_2.jpeg') }}" alt="Level with defender" />
+    <p>You’re also not offside if you’re level with the ball or second-last defender.</p>
+</section>
+
+<section class="story">
+    <img src="{{ url_for('static', filename='pdf_images/page_5_img_3.jpeg') }}" alt="Not involved" />
+    <p>And you're not offside if you're not actively involved in the play.</p>
+</section>
+
+<section class="story">
+    <h3>Ready to test yourself?</h3>
+    <a class="btn" href="{{ url_for('quiz') }}">Start Quiz</a>
+</section>
+{% endblock %}
