@@ -30,27 +30,34 @@ quiz_data = [
     {
         "image": "pdf_images/question0.png",
         "question": "Offside?",
-        "correct": "yes"
+        "correct": "yes",
+        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+
     },
     {
         "image": "pdf_images/question1.png",
         "question": "Offside?",
-        "correct": "yes"
+        "correct": "yes",
+        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+
     },
     {
         "image": "pdf_images/question2.png",
         "question": "Offside?",
-        "correct": "yes"
+        "correct": "no",
+        "feedback": "The player in question is in their own half! They are onside."
     },
     {
         "image": "pdf_images/page_24_img_1.jpeg",
         "question": "Offside?",
-        "correct": "yes"
+        "correct": "yes",
+        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
     },
     {
         "image": "pdf_images/page_27_img_1.jpeg",
         "question": "Offside?",
-        "correct": "yes"
+        "correct": "no",
+        "feedback": "The player in question is NOT closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them! They are onside."
     },
 ]
 
