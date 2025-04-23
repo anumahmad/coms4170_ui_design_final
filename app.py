@@ -91,17 +91,16 @@ def index():
 
 @app.route("/learn")
 def learn_intro():
-    # Start with lesson 0 (intro) instead of a separate learn.html
-    return redirect(url_for('learn_lesson', lesson_id="0"))
+    return redirect(url_for('learn_lesson', lesson_id="1"))
 
 @app.route("/learn/<lesson_id>")
 def learn_lesson(lesson_id):
     lesson = lessons.get(lesson_id)
     if not lesson:
-        # Fallback to intro if invalid lesson ID
-        return redirect(url_for("learn_intro"))
-    return render_template("lesson.html", lesson=lesson)
-
+        return redirect(url_for("learn_intro")) {% extends "layout.html" %} 
+@app.route("/learn")
+def learn():
+    return render_template("learn.html")
 
 @app.route("/quiz/<int:num>")
 def quiz(num):
