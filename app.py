@@ -4,17 +4,17 @@ app = Flask(__name__)
 
 quiz_data = [
     {
-        "image": "pdf_images/page_15_img_1.jpeg",
+        "image": "pdf_images/question0.png",
         "question": "Offside?",
         "correct": "yes"
     },
     {
-        "image": "pdf_images/page_15_img_1.jpeg",
+        "image": "pdf_images/question1.png",
         "question": "Offside?",
         "correct": "yes"
     },
     {
-        "image": "pdf_images/page_15_img_1.jpeg",
+        "image": "pdf_images/question2.png",
         "question": "Offside?",
         "correct": "yes"
     },
@@ -25,26 +25,6 @@ quiz_data = [
     },
     {
         "image": "pdf_images/page_27_img_1.jpeg",
-        "question": "Offside?",
-        "correct": "yes"
-    },
-    {
-        "image": "pdf_images/page_15_img_1.jpeg",
-        "question": "Offside?",
-        "correct": "yes"
-    },
-    {
-        "image": "pdf_images/page_15_img_1.jpeg",
-        "question": "Offside?",
-        "correct": "yes"
-    },
-    {
-        "image": "pdf_images/page_15_img_1.jpeg",
-        "question": "Offside?",
-        "correct": "yes"
-    },
-    {
-        "image": "pdf_images/page_15_img_1.jpeg",
         "question": "Offside?",
         "correct": "yes"
     },
