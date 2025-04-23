@@ -2,9 +2,8 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for, s
 
 import logging
 
-# Configure logging to a file
-logging.basicConfig(filename='events.log', level=logging.INFO,
-                    format='%(asctime)s - %(message)s')
+# print to console for data
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 app = Flask(__name__)
 
@@ -71,8 +70,8 @@ def log_event():
     timestamp = data.get('timestamp')
     user_id = session.get('user_id', 'anonymous')  # You can use session or any unique ID
 
-    # Log the event data into a file
-    logging.info(f"Event: {event_type}, Slide: {slide_number}, Time: {timestamp}, User: {user_id}")
+    # Log the event data to the console
+    print(f"Event: {event_type}, Slide: {slide_number}, Time: {timestamp}, User: {user_id}")
     
     return '', 204
 
