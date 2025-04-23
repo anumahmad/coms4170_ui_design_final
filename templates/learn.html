@@ -105,6 +105,29 @@
 <div class="checkerboard"></div>
 
 <script>
+let startTime = Date.now();
+
+// Function to send event data to the server
+function sendEvent(type, slide = null) {
+  fetch('/log_event', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      event_type: type,
+      slide_number: slide,
+      timestamp: new Date().toISOString()
+    })
+  });
+}
+
+// Track when the page loads (user starts the Learn section)
+window.addEventListener('DOMContentLoaded', () => {
+  sendEvent("start_learn");
+});
+
+// Modified showSlide function with event logging
 function showSlide(index) {
   const slides = document.querySelectorAll(".match-slide");
   const current = document.querySelector(".match-slide:not([style*='display: none'])");
@@ -123,6 +146,15 @@ function showSlide(index) {
     current.style.display = "none";
     next.style.display = "block";
   }, 600);
+
+  // Send event when the slide changes
+  sendEvent("slide_change", index);
 }
+
+// Track when the user clicks to start the quiz
+document.querySelector(".next-button[onclick*='quiz']")
+  .addEventListener('click', () => {
+    sendEvent("start_quiz");
+  });
 </script>
 {% endblock %}
