@@ -49,7 +49,8 @@ quiz_data = [
         "correct": "yes"
     },
 ]
-    
+
+user_answers = []
         
 @app.route("/")
 def index():
