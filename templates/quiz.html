@@ -1,12 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Quiz</h2>
-<p>Look at each image and decide: Is it offside?</p>
-<!-- Placeholder for images -->
-<img src="{{ url_for('static', filename='image_1.png') }}" alt="Scenario 1">
-<div>
-    <button onclick="checkAnswer(true)">YES</button>
-    <button onclick="checkAnswer(false)">NO</button>
+<h2>Quiz Question {{ qnum + 1 }}</h2>
+<p>{{ question.question }}</p>
+
+<img src="{{ url_for('static', filename=question.image) }}" alt="Quiz Scenario" style="max-width: 100%; height: auto;" />
+
+<div class="mt-3">
+    <button class="btn btn-success me-2" onclick="submitAnswer('yes', {{ qnum }})">YES</button>
+    <button class="btn btn-danger" onclick="submitAnswer('no', {{ qnum }})">NO</button>
 </div>
-<p id="feedback"></p>
+
+<p id="feedback" class="mt-2"></p>
 {% endblock %}
