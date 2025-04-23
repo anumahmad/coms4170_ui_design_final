@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 app = Flask(__name__)
 
@@ -62,12 +62,39 @@ def learn():
 
 @app.route("/quiz/<int:num>")
 def quiz(num):
-    # Load quiz data and pass the nth question to quiz.html
+    if num >= len(quiz_data):
+        return redirect(url_for('quiz_result'))
     return render_template("quiz.html", question=quiz_data[num], qnum=num)
+
+@app.route("/submit_answer", methods=["POST"])
+def submit_answer():
+    data = request.get_json()
+    answer = data["answer"]
+    qnum = data["question_number"]
+    
+    # Save the answer
+    if len(user_answers) <= qnum:
+        user_answers.append(answer)
+    else:
+        user_answers[qnum] = answer
+
+    # Move to next question or result
+    if qnum + 1 < len(quiz_data):
+        return jsonify({"next_question": qnum + 1})
+    else:
+        return jsonify({"next_question": None})
 
 @app.route("/drag")
 def drag():
     return render_template("drag.html")
+
+@app.route("/quiz_result")
+def quiz_result():
+    score = 0
+    for i, answer in enumerate(user_answers):
+        if answer == quiz_data[i]["correct"]:
+            score += 1
+    return render_template("quiz_result.html", score=score, total=len(quiz_data))
 
 if __name__ == "__main__":
     app.run(debug=True)
