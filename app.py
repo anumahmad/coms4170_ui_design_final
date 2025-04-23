@@ -54,11 +54,22 @@ quiz_data = [
     },
 ]
 
-user_answers = []
+user_answers = [] 
         
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/learn")
+def learn_intro():
+    return redirect(url_for('learn_lesson', lesson_id="1"))
+
+@app.route("/learn/<lesson_id>")
+def learn_lesson(lesson_id):
+    lesson = lessons.get(lesson_id)
+    if not lesson:
+        return redirect(url_for("learn_intro"))
+    return render_template("lesson.html", lesson=lesson)
 
 @app.route("/learn")
 def learn():
