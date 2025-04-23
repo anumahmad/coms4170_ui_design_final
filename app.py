@@ -89,6 +89,14 @@ user_answers = []
 def index():
     return render_template("index.html")
 
+@app.route("/log_slide", methods=["POST"])
+def log_slide():
+    data = request.get_json()
+    slide_logs.append(data)  # save slide name and timestamp
+    print("Slide log:", data)  # optional for debugging
+    return jsonify({"status": "ok"})
+
+
 @app.route("/learn")
 def learn_intro():
     return redirect(url_for('learn_lesson', lesson_id="1"))
