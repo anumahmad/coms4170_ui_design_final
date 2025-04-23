@@ -1,5 +1,11 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 
+import logging
+
+# Configure logging to a file
+logging.basicConfig(filename='events.log', level=logging.INFO,
+                    format='%(asctime)s - %(message)s')
+
 app = Flask(__name__)
 
 slide_logs = []
@@ -56,6 +62,19 @@ def log_slide():
 @app.route("/learn")
 def learn():
     return render_template("learn.html")
+
+@app.route('/log_event', methods=['POST'])
+def log_event():
+    data = request.get_json()
+    event_type = data.get('event_type')
+    slide_number = data.get('slide_number')
+    timestamp = data.get('timestamp')
+    user_id = session.get('user_id', 'anonymous')  # You can use session or any unique ID
+
+    # Log the event data into a file
+    logging.info(f"Event: {event_type}, Slide: {slide_number}, Time: {timestamp}, User: {user_id}")
+    
+    return '', 204
 
 @app.route("/quiz/<int:num>")
 def quiz(num):
