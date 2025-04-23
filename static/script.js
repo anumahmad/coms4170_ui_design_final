@@ -19,10 +19,10 @@ function submitAnswer(choice, qnum) {
         // Show feedback
         const feedbackEl = document.getElementById("feedback");
         if (data.correct) {
-            feedbackEl.textContent = "Correct!";
+            feedbackEl.textContent = "Correct! " + data.feedback;
             feedbackEl.style.color = "green";
         } else {
-            feedbackEl.textContent = "Wrong!";
+            feedbackEl.textContent = "Wrong! " + data.feedback;
             feedbackEl.style.color = "red";
         }
 
