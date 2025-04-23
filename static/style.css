@@ -254,4 +254,13 @@ nav a:hover {
     opacity: 1;
     z-index: 1;
   }
+.quiz-image {
+  width: 500px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 30px auto;
+  border-radius: 10px;
+}
+
   
