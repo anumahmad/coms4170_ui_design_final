@@ -3,3 +3,35 @@ function checkAnswer(isYes) {
     // Placeholder logic
     feedback.textContent = isYes ? "Correct!" : "Wrong!";
 }
+function submitAnswer(choice, qnum) {
+    fetch("/submit_answer", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            answer: choice,
+            question_number: qnum
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Show feedback
+        const feedbackEl = document.getElementById("feedback");
+        if (data.correct) {
+            feedbackEl.textContent = "Correct!";
+            feedbackEl.style.color = "green";
+        } else {
+            feedbackEl.textContent = "Wrong!";
+            feedbackEl.style.color = "red";
+        }
+
+        // Show next button
+        document.getElementById("nextBtn").style.display = "inline-block";
+    });
+}
+
+function goToNext(qnum) {
+    window.location.href = `/quiz/${qnum + 1}`;
+}
+
