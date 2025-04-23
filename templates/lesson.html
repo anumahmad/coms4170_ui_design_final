@@ -1,16 +1,24 @@
 {% extends "layout.html" %}
+
 {% block content %}
 <div class="lesson-container">
-  <h1>{{ lesson.title }}</h1>
-  <p>{{ lesson.text }}</p>
-  {% if lesson.image %}
-    <img src="{{ url_for('static', filename=lesson.image) }}" alt="Lesson image">
-  {% endif %}
-
-  {% if lesson.next_lesson %}
-    <a class="btn" href="{{ url_for('learn_lesson', lesson_id=lesson.next_lesson) }}">Next Lesson</a>
+  {% if lesson.lesson_id == "0" %}
+    <h1>{{ lesson.title }}</h1>
+    {{ lesson.text | safe }}
+    <div class="next-button" onclick="window.location.href='{{ url_for('learn_lesson', lesson_id=lesson.next_lesson) }}'">
+      VIEW A MATCH
+    </div>
   {% else %}
-    <a class="btn" href="{{ url_for('quiz') }}">Start Quiz</a>
+    <h1>{{ lesson.title }}</h1>
+    <p>{{ lesson.text }}</p>
+    {% if lesson.image %}
+      <img src="{{ url_for('static', filename=lesson.image) }}" alt="Lesson image">
+    {% endif %}
+    {% if lesson.next_lesson %}
+      <a class="btn" href="{{ url_for('learn_lesson', lesson_id=lesson.next_lesson) }}">Next Lesson</a>
+    {% else %}
+      <a class="btn" href="{{ url_for('quiz') }}">Start Quiz</a>
+    {% endif %}
   {% endif %}
 </div>
 {% endblock %}
