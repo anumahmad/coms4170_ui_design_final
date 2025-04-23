@@ -2,7 +2,7 @@
 {% block content %}
 <div class="learn-nav">
   <a class="btn learn-btn" href="{{ url_for('learn') }}">Learn</a>
-  <a class="btn quiz-btn" href="{{ url_for('quiz') }}">Skip to Quiz</a>
+  <a class="btn quiz-btn" href="{{ url_for('quiz', num=0) }}">Skip to Quiz</a>
 </div>
 
 <section class="learn-slide" id="intro-slide">
