@@ -78,6 +78,10 @@ def learn_lesson(lesson_id):
         return redirect(url_for("learn_intro"))
     return render_template("lesson.html", lesson=lesson)
 
+@app.route("/learn")
+def learn():
+    return render_template("learn.html")
+
 
 @app.route("/quiz/<int:num>")
 def quiz(num):
