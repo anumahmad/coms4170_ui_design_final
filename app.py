@@ -95,6 +95,7 @@ def submit_answer():
     qnum = data["question_number"]
     
     correct = quiz_data[qnum]["correct"]
+    feedback = quiz_data[qnum]["feedback"]
     is_correct = (answer == correct)
 
     if len(user_answers) <= qnum:
@@ -102,7 +103,10 @@ def submit_answer():
     else:
         user_answers[qnum] = answer
 
-    return jsonify({"correct": is_correct})
+    return jsonify({
+        "correct": is_correct,
+        "feedback": feedback
+    })
 
 @app.route("/drag")
 def drag():
