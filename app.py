@@ -72,17 +72,15 @@ def submit_answer():
     answer = data["answer"]
     qnum = data["question_number"]
     
-    # Save the answer
+    correct = quiz_data[qnum]["correct"]
+    is_correct = (answer == correct)
+
     if len(user_answers) <= qnum:
         user_answers.append(answer)
     else:
         user_answers[qnum] = answer
 
-    # Move to next question or result
-    if qnum + 1 < len(quiz_data):
-        return jsonify({"next_question": qnum + 1})
-    else:
-        return jsonify({"next_question": None})
+    return jsonify({"correct": is_correct})
 
 @app.route("/drag")
 def drag():
