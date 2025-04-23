@@ -4,26 +4,6 @@ app = Flask(__name__)
 
 lessons = {
 
-     "0": {
-        "lesson_id": "0",
-        "title": "Introduction",
-        "text": """<div class="text-columns">
-          <div class="column">
-            <h3>What is the Offside Rule even for?</h3>
-            <p>If you’ve ever watched a football match, you’ve probably heard the term “offside” thrown around, often followed by some groans, cheers, or VAR jokes (a system that uses video footage to assist on-field referees in making decisions).</p>
-          </div>
-          <div class="column">
-            <h3>Why?</h3>
-            <p>In simple terms, the offside rule exists to prevent players from hanging around the opponent’s goal waiting for an easy chance to score. It keeps the game fair and strategic. It can get a bit technical, which is why even VAR (Video Assistant Referee) sometimes takes ages to decide.</p>
-          </div>
-        </div>
-        <div class='speech-bubbles'>
-          <div class='bubble green'>“VAR works for [ rival team ] confirmed.”</div>
-          <div class='bubble white'>“By the time VAR makes a decision, I’ll be at the World Cup.”</div>
-        </div>""",
-        "image": "pdf_images/base_learning.png",  # Optional if you want to show the image
-        "next_lesson": "1"
-    },
     
     "1": {
         "lesson_id": "1",
@@ -97,15 +77,6 @@ def log_slide():
     return jsonify({"status": "ok"})
 
 
-@app.route("/learn")
-def learn_intro():
-    return redirect(url_for('learn_lesson', lesson_id="1"))
-
-@app.route("/learn/<lesson_id>")
-def learn_lesson(lesson_id):
-    lesson = lessons.get(lesson_id)
-    if not lesson:
-        return redirect(url_for("learn_intro")) {% extends "layout.html" %} 
 @app.route("/learn")
 def learn():
     return render_template("learn.html")
