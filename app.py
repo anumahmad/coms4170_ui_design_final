@@ -2,31 +2,6 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 
 app = Flask(__name__)
 
-lessons = {
-
-    
-    "1": {
-        "lesson_id": "1",
-        "title": "What is Offside?",
-        "text": "A player is in an offside position if, at the moment the ball is played to them, they are closer to the opponent’s goal line than both the ball and the second-to-last defender.",
-        "image": "pdf_images/base_2.png",
-        "next_lesson": "2"
-    },
-    "2": {
-        "lesson_id": "2",
-        "title": "Active Involvement",
-        "text": "The player must also be actively involved in play (e.g., receiving the ball or interfering with play).",
-        "image": "pdf_images/base_3.png",
-        "next_lesson": "3"
-    },
-    "3": {
-        "lesson_id": "3",
-        "title": "Opponent’s Half",
-        "text": "They must also be in the opponent’s half of the field.",
-        "image": "pdf_images/base_4.png",
-        "next_lesson": None  # Ends with quiz
-    } 
-}
 
 quiz_data = [
     {
