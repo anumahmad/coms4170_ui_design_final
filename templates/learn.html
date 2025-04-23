@@ -112,22 +112,6 @@ function showSlide(index) {
 
   if (!current || !next || current === next) return;
 
-  // Get the current timestamp
-  const timestamp = new Date().toISOString();
-
-  // Send the slide log to the server
-  fetch("/log_slide", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      slide: index,
-      time: timestamp
-    })
-  });
-
-  // Animate transition
   const currentOverlay = current.querySelector(".match-image.overlay");
   const nextImage = next.querySelector(".match-image.show");
 
