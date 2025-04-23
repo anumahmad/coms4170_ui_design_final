@@ -16,10 +16,22 @@ function submitAnswer(choice, qnum) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.next_question !== null) {
-            window.location.href = "/quiz/" + data.next_question;
+        // Show feedback
+        const feedbackEl = document.getElementById("feedback");
+        if (data.correct) {
+            feedbackEl.textContent = "Correct!";
+            feedbackEl.style.color = "green";
         } else {
-            window.location.href = "/quiz_result";
+            feedbackEl.textContent = "Wrong!";
+            feedbackEl.style.color = "red";
         }
+
+        // Show next button
+        document.getElementById("nextBtn").style.display = "inline-block";
     });
 }
+
+function goToNext(qnum) {
+    window.location.href = `/quiz/${qnum + 1}`;
+}
+
