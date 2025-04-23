@@ -1,46 +1,105 @@
 {% extends "layout.html" %}
 {% block content %}
-<section class="story">
-    <h2>What is the Offside Rule?</h2>
-    <p>If you’ve ever watched a football match, you’ve probably heard the term “offside” thrown around...</p>
+<div class="learn-nav">
+  <a class="btn learn-btn" href="{{ url_for('learn') }}">Learn</a>
+  <a class="btn quiz-btn" href="{{ url_for('quiz') }}">Skip to Quiz</a>
+</div>
+
+<section class="learn-slide" id="intro-slide">
+  <h1><em>What is</em> the Offside Rule?</h1>
+  <div class="text-columns">
+    <div class="column">
+      <h3>What is the Offside Rule even for?</h3>
+      <p>If you’ve ever watched a football match, you’ve probably heard the term “offside” thrown around, often followed by some groans, cheers, or VAR jokes (a system that uses video footage to assist on-field referees in making decisions).</p>
+    </div>
+    <div class="column">
+      <h3>Why?</h3>
+      <p>In simple terms, the offside rule exists to prevent players from hanging around the opponent’s goal waiting for an easy chance to score. It keeps the game fair and strategic. It can get a bit technical, which is why even VAR (Video Assistant Referee) sometimes takes ages to decide.</p>
+    </div>
+  </div>
+  <div class="speech-bubbles">
+    <div class="bubble green">“VAR works for [ rival team ] confirmed.”</div>
+    <div class="bubble white">“By the time VAR makes a decision, I’ll be at the World Cup.”</div>
+  </div>
+  <a class="big-arrow" href="#match-section">VIEW A MATCH</a>
 </section>
 
-<section class="story">
-    <img src="{{ url_for('static', filename='pdf_images/page_1_img_1.jpeg') }}" alt="VAR joke" />
+<br>
+<br>
+<br>
+
+<div class="checkerboard"></div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section id="match-section" class="match-slide">
+  <div class="slide-content">
+    <div class="slide-text">
+      <h1><em>What is</em> the Offside Rule?</h1>
+      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
+      <ul>
+        <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
+      </ul>
+      <div class="next-button" onclick="showSlide(1)">NEXT</div>
+    </div>
+    <div class="slide-image">
+      <img src="{{ url_for('static', filename='pdf_images/page_3_img_1.jpeg') }}" alt="Slide 1" class="match-image">
+    </div>
+  </div>
 </section>
 
-<section class="story">
-    <h3>Why does the rule exist?</h3>
-    <p>It prevents players from just waiting near the goal for an easy score. It's meant to keep the game fair and strategic.</p>
+<section class="match-slide" style="display:none;">
+  <div class="slide-content">
+    <div class="slide-text">
+      <h1><em>What is</em> the Offside Rule?</h1>
+      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
+      <ul>
+        <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
+        <li><strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).</li>
+      </ul>
+      <div class="next-button" onclick="showSlide(2)">NEXT</div>
+    </div>
+    <div class="slide-image">
+      <img src="{{ url_for('static', filename='pdf_images/page_4_img_1.jpeg') }}" alt="Slide 2" class="match-image">
+    </div>
+  </div>
 </section>
 
-<section class="story">
-    <img src="{{ url_for('static', filename='pdf_images/page_3_img_1.jpeg') }}" alt="Offside diagram" />
-    <p>A player is offside if they’re closer to the opponent’s goal than the ball and second-last defender when the ball is played.</p>
+<section class="match-slide" style="display:none;">
+  <div class="slide-content">
+    <div class="slide-text">
+      <h1><em>What is</em> the Offside Rule?</h1>
+      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
+      <ul>
+        <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
+        <li><strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).</li>
+        <li><strong>3.</strong> They are in the <strong>opponent’s half of the field</strong>.</li>
+      </ul>
+      <div class="next-button" onclick="window.location.href='/quiz'">START QUIZ</div>
+    </div>
+    <div class="slide-image">
+      <img src="{{ url_for('static', filename='pdf_images/page_5_img_1.jpeg') }}" alt="Slide 3" class="match-image">
+    </div>
+  </div>
 </section>
 
-<section class="story">
-    <img src="{{ url_for('static', filename='pdf_images/page_4_img_1.jpeg') }}" alt="Second-last defender" />
-    <p>Offside depends on your position and timing. It's about when the ball is passed — not when it's received.</p>
-</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="checkerboard"></div>
 
-<section class="story">
-    <img src="{{ url_for('static', filename='pdf_images/page_5_img_1.jpeg') }}" alt="Player in own half" />
-    <p>You can't be offside in your own half!</p>
-</section>
-
-<section class="story">
-    <img src="{{ url_for('static', filename='pdf_images/page_5_img_2.jpeg') }}" alt="Level with defender" />
-    <p>You’re also not offside if you’re level with the ball or second-last defender.</p>
-</section>
-
-<section class="story">
-    <img src="{{ url_for('static', filename='pdf_images/page_5_img_3.jpeg') }}" alt="Not involved" />
-    <p>And you're not offside if you're not actively involved in the play.</p>
-</section>
-
-<section class="story">
-    <h3>Ready to test yourself?</h3>
-    <a class="btn" href="{{ url_for('quiz') }}">Start Quiz</a>
-</section>
+<script>
+function showSlide(index) {
+  const slides = document.querySelectorAll(".match-slide");
+  slides.forEach((s, i) => s.style.display = i === index ? "block" : "none");
+}
+</script>
 {% endblock %}
