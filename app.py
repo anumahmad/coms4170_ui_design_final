@@ -19,12 +19,12 @@ quiz_data = [
         "correct": "yes"
     },
     {
-        "image": "pdf_images/page_15_img_1.jpeg",
+        "image": "pdf_images/page_24_img_1.jpeg",
         "question": "Offside?",
         "correct": "yes"
     },
     {
-        "image": "pdf_images/page_15_img_1.jpeg",
+        "image": "pdf_images/page_27_img_1.jpeg",
         "question": "Offside?",
         "correct": "yes"
     },
