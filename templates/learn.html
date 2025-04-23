@@ -24,20 +24,28 @@
   <a class="big-arrow" href="#match-section">VIEW A MATCH</a>
 </section>
 
-<br>
-<br>
-<br>
-
+<br><br><br>
 <div class="checkerboard"></div>
+<br><br><br><br><br><br>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
+<!-- Slide 0: just setup sentence -->
 <section id="match-section" class="match-slide">
+  <div class="slide-content">
+    <div class="slide-text">
+      <h1><em>What is</em> the Offside Rule?</h1>
+      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
+      <ul></ul>
+      <div class="next-button" onclick="showSlide(1)">SEE RULE</div>
+    </div>
+    <div class="slide-image">
+      <img src="{{ url_for('static', filename='pdf_images/base_learning.png') }}" class="match-image show" alt="Slide 0">
+      <img class="match-image overlay" alt="Crossfade">
+    </div>
+  </div>
+</section>
+
+<!-- Slide 1 -->
+<section class="match-slide" style="display:none;">
   <div class="slide-content">
     <div class="slide-text">
       <h1><em>What is</em> the Offside Rule?</h1>
@@ -45,14 +53,16 @@
       <ul>
         <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
       </ul>
-      <div class="next-button" onclick="showSlide(1)">NEXT</div>
+      <div class="next-button" onclick="showSlide(2)">SEE RULE</div>
     </div>
     <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/page_3_img_1.jpeg') }}" alt="Slide 1" class="match-image">
+      <img src="{{ url_for('static', filename='pdf_images/base_2.png') }}" class="match-image show" alt="Slide 1">
+      <img class="match-image overlay" alt="Crossfade">
     </div>
   </div>
 </section>
 
+<!-- Slide 2 -->
 <section class="match-slide" style="display:none;">
   <div class="slide-content">
     <div class="slide-text">
@@ -62,14 +72,16 @@
         <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
         <li><strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).</li>
       </ul>
-      <div class="next-button" onclick="showSlide(2)">NEXT</div>
+      <div class="next-button" onclick="showSlide(3)">SEE RULE</div>
     </div>
     <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/page_4_img_1.jpeg') }}" alt="Slide 2" class="match-image">
+      <img src="{{ url_for('static', filename='pdf_images/base_3.png') }}" class="match-image show" alt="Slide 2">
+      <img class="match-image overlay" alt="Crossfade">
     </div>
   </div>
 </section>
 
+<!-- Slide 3 -->
 <section class="match-slide" style="display:none;">
   <div class="slide-content">
     <div class="slide-text">
@@ -83,23 +95,34 @@
       <div class="next-button" onclick="window.location.href='/quiz'">START QUIZ</div>
     </div>
     <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/page_5_img_1.jpeg') }}" alt="Slide 3" class="match-image">
+      <img src="{{ url_for('static', filename='pdf_images/base_4.png') }}" class="match-image show" alt="Slide 3">
+      <img class="match-image overlay" alt="Crossfade">
     </div>
   </div>
 </section>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br>
 <div class="checkerboard"></div>
 
 <script>
 function showSlide(index) {
   const slides = document.querySelectorAll(".match-slide");
-  slides.forEach((s, i) => s.style.display = i === index ? "block" : "none");
+  const current = document.querySelector(".match-slide:not([style*='display: none'])");
+  const next = slides[index];
+
+  if (!current || !next || current === next) return;
+
+  const currentOverlay = current.querySelector(".match-image.overlay");
+  const nextImage = next.querySelector(".match-image.show");
+
+  currentOverlay.src = nextImage.src;
+  currentOverlay.classList.add("show");
+
+  setTimeout(() => {
+    currentOverlay.classList.remove("show");
+    current.style.display = "none";
+    next.style.display = "block";
+  }, 600);
 }
 </script>
 {% endblock %}

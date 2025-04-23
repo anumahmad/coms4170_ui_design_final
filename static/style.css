@@ -203,3 +203,55 @@ nav a:hover {
   .slide-text ul {
     min-height: 150px; /* enough space for 3 lines */
   }
+
+  .match-image {
+    max-width: 100%;
+    border-radius: 10px;
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+  }
+  
+  .match-image.fade-out {
+    opacity: 0;
+  }
+  .slide-image {
+    position: relative;
+    height: auto;
+  }
+  
+  .match-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 10px;
+    transition: opacity 0.6s ease-in-out;
+    opacity: 0;
+    z-index: 0;
+  }
+  
+  .match-image.show {
+    opacity: 1;
+    z-index: 1;
+  }
+  
+  .slide-image {
+    position: relative;
+  }
+  
+  .match-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 0;
+  }
+  
+  .match-image.show {
+    opacity: 1;
+    z-index: 1;
+  }
+  
