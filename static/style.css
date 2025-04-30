@@ -189,12 +189,25 @@ footer {
   margin-top: auto;
 }
 
-.checkerboard {
+.checkerboardblackfirst {
   height: 40px;
   background: repeating-linear-gradient(
       90deg,
       black 0 40px,
       white 40px 80px
+      /* black 40px 80px,
+      white 0px 40px */
+  );
+}
+
+.checkerboardwhitefirst {
+  height: 40px;
+  background: repeating-linear-gradient(
+      90deg,
+      white 0 40px,
+      black 40px 80px
+      /* black 40px 80px,
+      white 0px 40px */
   );
 }
 
@@ -262,7 +275,7 @@ footer {
   box-sizing: border-box;
   padding-top: 120px;
   padding-bottom: 40px;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 80px);
 }
 
 /* FLOATING IMAGES */
