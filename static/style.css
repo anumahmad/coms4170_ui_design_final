@@ -1,259 +1,249 @@
 /* GENERAL */
-html {
-    scroll-behavior: smooth;
-  }
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #1e3d0e; /* dark green */
-    color: #fff;
-    scroll-behavior: smooth;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Tourney", sans-serif;
+  background-color: #1e3d0e; /* dark green */
+  color: #fff;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-    text-align: center;
-    padding: 40px 20px;
+  text-align: center;
+  flex: 1;
+  position: relative;
+  min-height: 0;
 }
 
 /* NAVIGATION */
 nav {
-    background-color: #0f2e04;
-    padding: 15px;
-    text-align: center;
+  background-color: #666666ff;
+  padding: 20px 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 nav a {
-    color: #FFD700;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
+  color: #b7b7b7;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 900;
+  font-size: 24px;
 }
 
 nav a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* BUTTON STYLES */
 .btn {
-    background-color: #d4ff4a;
-    border: none;
-    color: #1e3d0e;
-    padding: 15px 30px;
-    margin: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 30px;
-    cursor: pointer;
-    display: inline-block;
-    text-decoration: none;
+  background-color: #c9f24dff;
+  border: none;
+  color: #1e3d0e;
+  padding: 15px 30px;
+  margin: 10px;
+  font-size: 50px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
 }
 
-.learn-btn {
-    background-color: #ffe073;
+.learn-btn, .quiz-btn {
+  background-color: #c9f24dff;
+  width: 300px;
 }
 
-.quiz-btn {
-    background-color: #d4ff4a;
+/* HERO / INTRO SECTION */
+.learn-slide h1,
+.hero h1 {
+  font-size: 120px;
+  padding-top: 5%;
+  margin-bottom: 30px;
+  font-weight: 800;
 }
 
-/* INTRO SECTION */
-.learn-slide h1 {
-    font-size: 48px;
-    margin-bottom: 30px;
+.learn-slide p,
+.hero p {
+  font-size: 60px;
+  font-weight: 500;
 }
 
+/* TEXT COLUMNS */
 .text-columns {
-    display: flex;
-    justify-content: center;
-    text-align: left;
-    gap: 40px;
-    margin: 0 auto 30px;
-    max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  gap: 40px;
+  margin: 0 auto 30px;
+  max-width: 1000px;
 }
 
 .column {
-    flex: 1;
-    padding: 0 20px;
+  flex: 1;
+  padding: 0 20px;
 }
 
 /* SPEECH BUBBLES */
 .speech-bubbles {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin: 40px 0;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 40px 0;
 }
 
 .bubble {
-    max-width: 300px;
-    padding: 15px 20px;
-    font-weight: bold;
-    border-radius: 6px;
-    position: relative;
+  max-width: 300px;
+  padding: 15px 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  position: relative;
 }
 
 .bubble.green {
-    background-color: #d4ff4a;
-    color: #1e3d0e;
+  background-color: #d4ff4a;
+  color: #1e3d0e;
 }
 
 .bubble.white {
-    background-color: white;
-    color: #1e3d0e;
+  background-color: white;
+  color: #1e3d0e;
 }
 
 .bubble.white::after {
-    content: "";
-    position: absolute;
-    bottom: -15px;
-    left: 30px;
-    width: 0;
-    height: 0;
-    border-top: 15px solid white;
-    border-left: 15px solid transparent;
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border-top: 15px solid white;
+  border-left: 15px solid transparent;
 }
 
 /* BIG ARROW BUTTON */
 .big-arrow {
-    display: inline-block;
-    margin-top: 40px;
-    padding: 25px 50px;
-    background-color: #e6ff57;
-    color: #1e3d0e;
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
-    cursor: pointer;
+  display: inline-block;
+  margin-top: 40px;
+  padding: 25px 50px;
+  background-color: #e6ff57;
+  color: #1e3d0e;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
+  cursor: pointer;
 }
 
 /* MATCH SLIDES */
 .match-slide {
-    max-width: 900px;
-    margin: 80px auto;
-    text-align: center;
+  max-width: 900px;
+  margin: 80px auto;
+  text-align: center;
 }
 
 .match-slide h1 {
-    font-size: 42px;
-    margin-bottom: 20px;
+  font-size: 42px;
+  margin-bottom: 20px;
+  font-weight: 800;
 }
 
 .match-slide p, .match-slide ul {
-    font-size: 18px;
-    text-align: left;
-    max-width: 700px;
-    margin: 0 auto 20px;
+  font-size: 18px;
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto 20px;
+  font-weight: 500;
 }
 
 .match-image {
-    margin: 30px 0;
-    max-width: 100%;
-    border-radius: 10px;
+  margin: 30px 0;
+  max-width: 100%;
+  border-radius: 10px;
 }
 
 /* NEXT BUTTON */
 .next-button {
-    background-color: #e6ff57;
-    color: #004d00;
-    font-weight: bold;
-    font-size: 26px;
-    padding: 20px 50px;
-    display: inline-block;
-    margin-top: 30px;
-    cursor: pointer;
-    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
+  background-color: #e6ff57;
+  color: #004d00;
+  font-weight: bold;
+  font-size: 26px;
+  padding: 20px 50px;
+  display: inline-block;
+  margin-top: 30px;
+  cursor: pointer;
+  clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
 }
 
 /* CHECKERBOARD FOOTER */
-.checkerboard {
-    height: 40px;
-    background: repeating-linear-gradient(
-        90deg,
-        red 0 40px,
-        #ffeb3b 40px 80px
-    );
-    margin-top: 60px;
+footer {
+  margin-top: auto;
 }
 
+.checkerboard {
+  height: 40px;
+  background: repeating-linear-gradient(
+      90deg,
+      black 0 40px,
+      white 40px 80px
+  );
+}
 
+/* SLIDE CONTENT LAYOUT */
 .slide-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    text-align: left;
-    max-width: 1100px;
-    margin: 40px auto;
-  }
-  
-  .slide-text {
-    flex: 1;
-    min-width: 300px;
-  }
-  
-  .slide-image {
-    flex: 1;
-    min-width: 300px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  text-align: left;
+  max-width: 1100px;
+  margin: 40px auto;
+}
 
-  .slide-text ul {
-    min-height: 150px; /* enough space for 3 lines */
-  }
+.slide-text {
+  flex: 1;
+  min-width: 300px;
+}
 
-  .match-image {
-    max-width: 100%;
-    border-radius: 10px;
-    opacity: 1;
-    transition: opacity 0.4s ease-in-out;
-  }
-  
-  .match-image.fade-out {
-    opacity: 0;
-  }
-  .slide-image {
-    position: relative;
-    height: auto;
-  }
-  
-  .match-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    border-radius: 10px;
-    transition: opacity 0.6s ease-in-out;
-    opacity: 0;
-    z-index: 0;
-  }
-  
-  .match-image.show {
-    opacity: 1;
-    z-index: 1;
-  }
-  
-  .slide-image {
-    position: relative;
-  }
-  
-  .match-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out;
-    z-index: 0;
-  }
-  
-  .match-image.show {
-    opacity: 1;
-    z-index: 1;
-  }
+.slide-image {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+}
+
+/* SLIDE TEXT */
+.slide-text ul {
+  min-height: 150px;
+}
+
+/* FADE EFFECTS ON IMAGES */
+.match-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 0;
+}
+
+.match-image.show {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* QUIZ IMAGE STYLES */
 .quiz-image {
   width: 500px;
   max-width: 90%;
@@ -263,4 +253,33 @@ nav a:hover {
   border-radius: 10px;
 }
 
-  
+/* HERO STYLES */
+.hero {
+  background-color: #264a1f;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-top: 120px;
+  padding-bottom: 40px;
+  min-height: calc(100vh - 50px);
+}
+
+/* FLOATING IMAGES */
+.soccer-ball {
+  position: absolute;
+  top: 10px;
+  left: -5%;
+  width: 20vw; /* responsive width */
+  max-width: 450px;
+  z-index: 1;
+}
+
+.cleats {
+  position: absolute;
+  top: -5px;
+  right: -2%;
+  width: 20vw; /* responsive width */
+  max-width: 550px;
+  z-index: 1;
+}

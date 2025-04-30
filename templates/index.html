@@ -1,7 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Is It Offside?</h1>
-<p>Test your knowledge against VAR!</p>
-<a class="btn" href="{{ url_for('learn') }}">Learn</a>
-<a class="btn" href="{{ url_for('quiz', num=0) }}">Take Quiz</a>
+
+<main class="hero">
+  <img src="{{ url_for('static', filename='images/soccer_ball.png') }}" alt="Soccer Ball" class="soccer-ball">
+  <img src="{{ url_for('static', filename='images/cleats.png') }}" alt="Soccer Cleats" class="cleats">
+
+  <div class="content">
+    <h1>Is It Offside?</h1>
+    <p>Test your knowledge on basic soccer rules!</p>
+    <div class="buttons">
+      <a href="{{ url_for('learn') }}" class="btn learn-btn">Learn</a>
+      <a href="{{ url_for('quiz', num=0) }}" class="btn quiz-btn">Quiz</a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="checkerboard"></div>
+</footer>
+
 {% endblock %}
