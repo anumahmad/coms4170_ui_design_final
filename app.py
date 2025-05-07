@@ -119,10 +119,9 @@ def log_slide():
     print("Slide log:", data)  # optional for debugging
     return jsonify({"status": "ok"})
 
-
 @app.route("/learn")
 def learn():
-    return render_template("learn.html")
+    return render_template("learn.html", learn_data=learn_data)
 
 @app.route('/log_event', methods=['POST'])
 def log_event():
