@@ -312,8 +312,10 @@ footer {
 .quiz-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto 40px auto;
 }
 
 .quiz-left {
@@ -323,10 +325,19 @@ footer {
 .quiz-right {
     flex: 1;
     background-color: #1e3d0e;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
-    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.quiz-right h1 {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
 
 .quiz-footer {
     display: flex;
