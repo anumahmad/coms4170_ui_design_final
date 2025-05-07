@@ -27,14 +27,22 @@ function submitAnswer(choice, qnum) {
     resultText.classList.add('feedback-result');
     resultText.textContent = data.correct ? "Correct!" : "Wrong!";
 
-    // Create explanation feedback
-    const explanationText = document.createElement('div');
-    explanationText.classList.add('feedback-explanation');
-    explanationText.textContent = data.feedback;
+    // Add correct or wrong class
+    if (data.correct) {
+        resultText.classList.add("correct");
+    } else {
+        resultText.classList.add("wrong");
+    }
 
-    // Append both to feedback element
+    // Create explanation text
+    const explanationText = document.createElement("div");
+    explanationText.textContent = data.feedback;
+    explanationText.classList.add("feedback-explanation");
+
+    // Append
     feedbackEl.appendChild(resultText);
     feedbackEl.appendChild(explanationText);
+
         
         // Hide question and answer buttons
         const questionContainer = document.querySelector(".quiz-question-container");
