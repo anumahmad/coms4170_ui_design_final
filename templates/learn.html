@@ -6,13 +6,24 @@
   <div class="text-columns">
     <div class="column">
       <h3>{{ learn_data.intro.column1_title }}</h3>
-      <p>{{ learn_data.intro.column1_content }}</p>
+      <p class="intro-text">{{ learn_data.intro.column1_content }}</p>
     </div>
     <div class="column">
       <h3>{{ learn_data.intro.column2_title }}</h3>
-      <p>{{ learn_data.intro.column2_content }}</p>
+      <p class="intro-text">{{ learn_data.intro.column2_content }}</p>
     </div>
   </div>
+  
+  <style>
+    .intro-text {
+      font-size: 0.9em;
+      font-weight: 400;
+      color: #000;
+      /* Makes the font look more filled in */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
   <div class="speech-bubbles">
     <div class="bubble green">"{{ learn_data.intro.bubble1 }}"</div>
     <div class="bubble white">"{{ learn_data.intro.bubble2 }}"</div>
