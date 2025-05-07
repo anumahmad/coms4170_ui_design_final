@@ -202,7 +202,7 @@ def submit_answer():
 
 @app.route("/drag")
 def drag():
-    return render_template("drag.html")
+    return render_template("drag.html", drag_data=drag_data)
 
 @app.route("/quiz_result")
 def quiz_result():
