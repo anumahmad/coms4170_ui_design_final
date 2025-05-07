@@ -14,7 +14,7 @@
     <!-- Draggable scenario images -->
     <div class="draggable-container">
       {% for scenario in drag_data.images %}
-        <div id="{{ scenario.id }}" class="draggable scenario-image" data-is-offside="{{ scenario.is_offside|lower }}" data-feedback="{{ scenario.feedback }}">
+        <div id="{{ scenario.id }}" class="draggable scenario-image" data-is-offside="{{ 'true' if scenario.is_offside else 'false' }}" data-feedback="{{ scenario.feedback }}">
           <video width="100%" height="100%" preload="auto" muted autoplay loop playsinline>
             <source src="{{ url_for('static', filename=scenario.image) }}" type="video/mp4">
             Your browser does not support the video tag.
@@ -100,33 +100,37 @@
     display: block;
   }
   
-  .dropzones {
-    display: flex;
-    justify-content: space-between;  
-    width: 100%;
-    margin-top: 30px;
-    flex-wrap: nowrap;      /* Changed from wrap to nowrap to prevent wrapping */
-    gap: 10px;              /* Added gap between the zones */
-  }
+.dropzones {
+  display: flex;
+  justify-content: center;  /* Changed from space-between to center */
+  width: 100%;
+  margin-top: 20px;        /* Reduced from 30px */
+  margin-bottom: 20px;     /* Added to reduce space below */
+  flex-wrap: nowrap;
+  gap: 0px;                /* Removed gap completely */
+}
+
   
-  .dropzone {
-    text-align: center;
-    flex: 1;                /* Make each dropzone take equal space */
-    max-width: 600px;       /* Set maximum width to match the drop-area */
-  }
+.dropzone {
+  text-align: center;
+  flex: 0 0 auto;          /* Changed from flex: 1 to prevent stretching */
+  width: 45%;              /* Set explicit width instead of max-width */
+  margin: 0 5px;           /* Small margin for minimal spacing */
+}
   
-  .drop-area {
-    width: 600px;           /* Reduced from 700px to 600px */
-    height: 280px;          /* Reduced from 350px to 280px */
-    border: 3px solid #e6ff57;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    margin-top: 10px;
-    transition: background 0.3s;
-    overflow: hidden;       /* Changed from auto to hidden - no scrolling */
-    padding: 10px;          /* Added padding for better spacing */
-    position: relative;     /* For absolute positioning of children */
-  }
+.drop-area {
+  width: 100%;             /* Full width of parent */
+  max-width: 550px;        /* Slightly reduced from 600px */
+  height: 280px;
+  border: 3px solid #e6ff57;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  margin: 10px auto 0;     /* Centered */
+  transition: background 0.3s;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}
   
   /* Style for videos when they're in the drop area */
   .drop-area .scenario-image {
@@ -148,10 +152,10 @@
     margin: 0;
   }
   
-  .feedback-container {
-    margin-top: 40px;
-    text-align: center;
-  }
+.feedback-container {
+  margin-top: 10px;        
+  text-align: center;
+}
   
   .feedback-area {
     min-height: 80px;
@@ -160,11 +164,10 @@
     font-weight: 500;
   }
   
-  .progress-container {
-    margin: 30px auto;
-    max-width: 500px;
-  }
-  
+.progress-container {
+  margin: 15px auto;     
+  max-width: 500px;
+}
   .progress-text {
     margin-bottom: 10px;
     font-size: 18px;
@@ -197,6 +200,17 @@
   $(document).ready(function() {
     let completedCount = 0;
     const totalScenarios = {{ drag_data.images|length }};
+    
+    // DEBUG: Log all draggable elements with their offside values
+    $(".draggable").each(function() {
+      console.log(
+        "Scenario", $(this).attr("id"), 
+        "data-is-offside =", $(this).data("is-offside"),
+        "type =", typeof $(this).data("is-offside")
+      );
+    });
+    
+    // Make scenario images draggable
     
     // Make scenario images draggable
     $(".draggable").draggable({
@@ -255,14 +269,27 @@
           });
         });
         
-        // Check if the answer is correct
-        if ((isOffside && dropZoneAnswer) || (!isOffside && !dropZoneAnswer)) {
+        // Check if the answer is correct - being very explicit
+        const isCorrect = (isOffside === true && dropZoneAnswer === true) || 
+                         (isOffside === false && dropZoneAnswer === false);
+        
+        // DEBUG: Log values to console
+        console.log("Drop event:", {
+          id: $draggable.attr("id"),
+          isOffside: isOffside,
+          typeOfIsOffside: typeof isOffside,
+          dropZoneAnswer: dropZoneAnswer,
+          typeOfDropZoneAnswer: typeof dropZoneAnswer,
+          isCorrect: isCorrect
+        });
+        
+        if (isCorrect) {
           $draggable.addClass("correct");
           $("#feedback-area").html(`<span style="color: #4CAF50;">Correct!</span> ${feedback}`);
         } else {
           $draggable.addClass("incorrect");
           $("#feedback-area").html(`<span style="color: #f44336;">Incorrect!</span> ${feedback}`);
-        }
+        } 
         
         // Disable dragging after drop
         $draggable.draggable("disable");
