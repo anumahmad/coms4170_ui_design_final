@@ -9,6 +9,63 @@ app = Flask(__name__)
 
 slide_logs = []
 
+# Data for the learn section
+learn_data = {
+    "title": "What is the Offside Rule?",
+    "intro": {
+        "main_title": "What is the Offside Rule?",
+        "column1_title": "What is the Offside Rule even for?",
+        "column1_content": "If you've ever watched a football match, you've probably heard the term \"offside\" thrown around, often followed by some groans, cheers, or VAR jokes (a system that uses video footage to assist on-field referees in making decisions).",
+        "column2_title": "Why?",
+        "column2_content": "In simple terms, the offside rule exists to prevent players from hanging around the opponent's goal waiting for an easy chance to score. It keeps the game fair and strategic. It can get a bit technical, which is why even VAR (Video Assistant Referee) sometimes takes ages to decide.",
+        "bubble1": "VAR works for [ rival team ] confirmed.",
+        "bubble2": "By the time VAR makes a decision, I'll be at the World Cup."
+    },
+    "slides": [
+        {
+            "id": 0,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [],
+            "image": "pdf_images/base_learning.png",
+            "button_text": "SEE RULE"
+        },
+        {
+            "id": 1,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [
+                "<strong>1.</strong> They are <strong>closer to the opponent's goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>."
+            ],
+            "image": "pdf_images/base_2.png",
+            "button_text": "SEE RULE"
+        },
+        {
+            "id": 2,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [
+                "<strong>1.</strong> They are <strong>closer to the opponent's goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.",
+                "<strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play)."
+            ],
+            "image": "pdf_images/base_3.png",
+            "button_text": "SEE RULE"
+        },
+        {
+            "id": 3,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [
+                "<strong>1.</strong> They are <strong>closer to the opponent's goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.",
+                "<strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).",
+                "<strong>3.</strong> They are in the <strong>opponent's half of the field</strong>."
+            ],
+            "image": "pdf_images/base_4.png",
+            "button_text": "START QUIZ"
+        }
+    ]
+}
+
 quiz_data = [
     {
         "header": "Section 1: Offside - Yes or No",
