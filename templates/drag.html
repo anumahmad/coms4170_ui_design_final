@@ -6,15 +6,15 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
-<div class="drag-container">
+<div class="offsidedrag-container">
   <h1>{{ drag_data.title }}</h1>
-  <p class="drag-instructions">{{ drag_data.description }}</p>
+  <p class="offsidedrag-instructions">{{ drag_data.description }}</p>
   
-  <div class="drag-content">
+  <div class="offsidedrag-content">
     <!-- Draggable scenario images -->
-    <div class="draggable-container">
+    <div class="offsidedrag-videos-container">
       {% for scenario in drag_data.images %}
-        <div id="{{ scenario.id }}" class="draggable scenario-image" data-is-offside="{{ 'true' if scenario.is_offside else 'false' }}" data-feedback="{{ scenario.feedback }}">
+        <div id="{{ scenario.id }}" class="offsidedrag-draggable offsidedrag-video" data-is-offside="{{ 'true' if scenario.is_offside else 'false' }}" data-feedback="{{ scenario.feedback }}">
           <video width="100%" height="100%" preload="auto" muted autoplay loop playsinline>
             <source src="{{ url_for('static', filename=scenario.image) }}" type="video/mp4">
             Your browser does not support the video tag.
@@ -24,26 +24,26 @@
     </div>
     
     <!-- Drop zones -->
-    <div class="dropzones">
-      <div id="offside-zone" class="dropzone offside-zone">
+    <div class="offsidedrag-targets-container">
+      <div id="offside-zone" class="offsidedrag-target offsidedrag-yes">
         <h2>YES</h2>
-        <div class="drop-area" data-answer="true"></div>
+        <div class="offsidedrag-droparea" data-answer="true"></div>
       </div>
       
-      <div id="not-offside-zone" class="dropzone not-offside-zone">
+      <div id="not-offside-zone" class="offsidedrag-target offsidedrag-no">
         <h2>NO</h2>
-        <div class="drop-area" data-answer="false"></div>
+        <div class="offsidedrag-droparea" data-answer="false"></div>
       </div>
     </div>
   </div>
   
   <!-- Feedback area -->
-  <div class="feedback-container">
-    <div id="feedback-area" class="feedback-area"></div>
-    <div class="progress-container">
-      <div class="progress-text">Progress: <span id="completed-count">0</span>/{{ drag_data.images|length }}</div>
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+  <div class="offsidedrag-feedback-container">
+    <div id="feedback-area" class="offsidedrag-feedback-text"></div>
+    <div class="offsidedrag-progress-container">
+      <div class="offsidedrag-progress-text">Progress: <span id="completed-count">0</span>/{{ drag_data.images|length }}</div>
+      <div class="offsidedrag-progress-bar">
+        <div id="progress-fill" class="offsidedrag-progress-fill" style="width: 0%"></div>
       </div>
     </div>
     <button id="continue-btn" class="big-arrow" style="display: none;" onclick="window.location.href='/quiz/0'">CONTINUE TO QUIZ</button>
@@ -51,143 +51,152 @@
 </div>
 
 <style>
-  .drag-container {
+  /* Use namespaced classes to avoid conflicts with global CSS */
+  .offsidedrag-container {
+    width: 100%;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 60px auto 30px auto;
     padding: 20px;
+    box-sizing: border-box;
   }
   
-  .drag-instructions {
+  .offsidedrag-instructions {
     font-size: 18px;
     margin-bottom: 30px;
     text-align: center;
   }
   
-  .drag-content {
+  .offsidedrag-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-bottom: 40px;
   }
   
-  /* This arranges the videos in a horizontal row */
-  .draggable-container {
+  /* Videos container */
+  .offsidedrag-videos-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
     width: 100%;
-    margin-bottom: 80px; /* Added more space below videos */
+    margin-bottom: 120px; /* Plenty of space below videos */
   }
   
-  .scenario-image {
-    width: 250px;
-    height: 150px;
+  /* Video items */
+  .offsidedrag-video {
+    width: 280px;
+    height: 160px;
     border: 3px solid #fff;
     border-radius: 10px;
     overflow: hidden;
     cursor: move;
     transition: transform 0.2s, box-shadow 0.2s;
     background-color: #1e3d0e;
-    z-index: 10;
+    z-index: 50; /* Higher z-index to stay above other elements */
+    position: relative;
   }
   
-  .scenario-image:hover {
+  .offsidedrag-video:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    z-index: 20;
+    z-index: 60;
   }
   
-  .scenario-image video {
+  .offsidedrag-video video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
   
-  /* This positions the YES/NO zones side by side */
-  .dropzones {
+  /* YES/NO targets container */
+  .offsidedrag-targets-container {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 30px;
-    gap: 50px; /* More space between YES and NO */
+    gap: 60px;
   }
   
-  .dropzone {
+  /* Individual YES/NO target */
+  .offsidedrag-target {
     text-align: center;
     width: 40%;
+    max-width: 400px;
   }
   
-  /* Make the drop areas large enough */
-  .drop-area {
+  /* Drop area */
+  .offsidedrag-droparea {
     width: 100%;
-    max-width: 450px;
     height: 250px;
     border: 3px solid #e6ff57;
     border-radius: 20px;
     background: rgba(255,255,255,0.1);
-    margin: 10px auto 0;
+    margin: 10px auto;
     padding: 10px;
     position: relative;
   }
   
-  /* Ensure dropped videos show up properly */
-  .drop-area .scenario-image {
+  /* Dropped video styles */
+  .offsidedrag-droparea .offsidedrag-video {
     position: absolute;
-    transform-origin: center;
-    width: 180px;
-    height: 100px;
+    width: 200px;
+    height: 120px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    margin: 0;
   }
   
-  .drop-area.hover {
+  .offsidedrag-droparea.hover {
     background: rgba(230, 255, 87, 0.2);
   }
   
-  .dropzone h2 {
+  .offsidedrag-target h2 {
     font-size: 60px;
     color: #e6ff57;
     margin: 0 0 10px 0;
   }
   
-  .feedback-container {
+  /* Feedback section */
+  .offsidedrag-feedback-container {
     margin-top: 40px;
     text-align: center;
     padding-bottom: 30px;
   }
   
-  .feedback-area {
+  .offsidedrag-feedback-text {
     min-height: 80px;
     margin-bottom: 20px;
     font-size: 20px;
     font-weight: 500;
   }
   
-  .progress-container {
+  /* Progress display */
+  .offsidedrag-progress-container {
     margin: 15px auto;
     max-width: 500px;
   }
   
-  .progress-text {
+  .offsidedrag-progress-text {
     margin-bottom: 10px;
     font-size: 18px;
   }
   
-  .progress-bar {
+  .offsidedrag-progress-bar {
     height: 20px;
     background: rgba(255,255,255,0.2);
     border-radius: 10px;
     overflow: hidden;
   }
   
-  .progress-fill {
+  .offsidedrag-progress-fill {
     height: 100%;
     background: #e6ff57;
     width: 0%;
     transition: width 0.5s;
   }
   
+  /* Correct/incorrect indicators */
   .correct {
     border-color: #4CAF50 !important;
   }
@@ -195,13 +204,7 @@
   .incorrect {
     border-color: #f44336 !important;
   }
-
-  /* Add this to ensure there's space at the bottom of the page */
-  #continue-btn {
-    margin-bottom: 40px;
-  }
 </style>
- 
 
 <script>
   $(document).ready(function() {
@@ -209,7 +212,7 @@
     const totalScenarios = {{ drag_data.images|length }};
     
     // DEBUG: Log all draggable elements with their offside values
-    $(".draggable").each(function() {
+    $(".offsidedrag-draggable").each(function() {
       console.log(
         "Scenario", $(this).attr("id"), 
         "data-is-offside =", $(this).data("is-offside"),
@@ -217,10 +220,8 @@
       );
     });
     
-    // Make scenario images draggable
-    
-    // Make scenario images draggable
-    $(".draggable").draggable({
+    // Make videos draggable
+    $(".offsidedrag-draggable").draggable({
       revert: "invalid",
       zIndex: 100,
       start: function(event, ui) {
@@ -232,8 +233,8 @@
     });
     
     // Make drop areas droppable
-    $(".drop-area").droppable({
-      accept: ".draggable",
+    $(".offsidedrag-droparea").droppable({
+      accept: ".offsidedrag-draggable",
       hoverClass: "hover",
       drop: function(event, ui) {
         const $draggable = $(ui.draggable);
@@ -243,7 +244,7 @@
         
         // Position the draggable with overlapping effect in the drop area
         const $dropArea = $(this);
-        const existingItems = $dropArea.children('.scenario-image').length;
+        const existingItems = $dropArea.children('.offsidedrag-video').length;
         const dropAreaWidth = $dropArea.width();
         const dropAreaHeight = $dropArea.height();
         
@@ -258,8 +259,8 @@
         // Position in the center with offsets
         $draggable.css({
           position: 'absolute',
-          left: (dropAreaWidth / 2) - 120 + randomLeftOffset + 'px',
-          top: (dropAreaHeight / 2) - 71 + randomTopOffset + 'px',
+          left: (dropAreaWidth / 2) - 100 + randomLeftOffset + 'px',
+          top: (dropAreaHeight / 2) - 60 + randomTopOffset + 'px',
           margin: 0,
           transform: `rotate(${randomRotation}deg)`,
           transition: 'all 0.3s ease',
