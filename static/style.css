@@ -358,6 +358,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+
 }
 
 .quiz-page .quiz-right h1 {
