@@ -11,6 +11,7 @@ slide_logs = []
 
 quiz_data = [
     {
+        "header": "Section 1: Offside - Yes or No",
         "image": "pdf_images/question0.png",
         "question": "Offside?",
         "correct": "yes",
@@ -18,6 +19,7 @@ quiz_data = [
 
     },
     {
+        "header": "Section 1: Offside - Yes or No",
         "image": "pdf_images/question1.png",
         "question": "Offside?",
         "correct": "yes",
@@ -25,18 +27,21 @@ quiz_data = [
 
     },
     {
+        "header": "Section 1: Offside - Yes or No",
         "image": "pdf_images/question2.png",
         "question": "Offside?",
         "correct": "no",
         "feedback": "The player in question is in their own half! They are onside."
     },
     {
+        "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_24_img_1.jpeg",
         "question": "Offside?",
         "correct": "yes",
         "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
     },
     {
+        "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_27_img_1.jpeg",
         "question": "Offside?",
         "correct": "no",
