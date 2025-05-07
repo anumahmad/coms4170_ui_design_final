@@ -321,6 +321,7 @@ footer {
     flex: 2;
     padding-left: 0;
     margin-left: 0;
+    max-width: 1000px;
 }
 
 .quiz-page .quiz-header {
