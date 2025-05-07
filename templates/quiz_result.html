@@ -1,6 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Quiz Complete!</h2>
-<p>You scored {{ score }} out of {{ total }}.</p>
-<a href="{{ url_for('quiz', num=0) }}">Try Again</a>
+<br>
+<br>
+<br>
+<br>
+
+<h1>Quiz Complete!</h1>
+<h2>You scored {{ score }} out of {{ total }}.</h2>
+
+<h2>Question Summary</h2>
+<ul>
+  {% for result in results %}
+    <p style="margin-bottom: 1em;">
+      <strong>Question {{ result.number }}:</strong> {{ result.question }}<br>
+      ✅ Correct answer: <strong>{{ result.correct_answer|capitalize }}</strong><br>
+      🧠 Your answer: <strong>{{ result.your_answer|capitalize }}</strong><br>
+      {% if result.is_correct %}
+        <span style="color: green;">✅ You got it right!</span>
+      {% else %}
+        <span style="color: red;">❌ You got it wrong.</span>
+      {% endif %}
+      <br>
+      <em>{{ result.feedback }}</em>
+    </p>
+  {% endfor %}
+</ul>
+
+
+<h2>Game Round Attempts</h2>
+<ul>
+  {% for round, tries in game_attempts.items() %}
+    <p>Round {{ round }}: {{ tries }} attempt{{ 's' if tries != 1 else '' }}</p>
+  {% endfor %}
+</ul>
+
+<h1><a style= "color:white" href="{{ url_for('quiz', num=0) }}">Try Again</a></h1>
+
+
+
+ 
 {% endblock %}

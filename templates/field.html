@@ -13,6 +13,8 @@
     <br>
     <br>
     <p class="btn">Drag me to a position you think is not offsides!</p>
+    <p id="attempt-count" style="color:white; font-weight:bold; margin-top: 10px;"></p>
+
   </div>
 
   <!-- <div class="player red" id="draggable" draggable="true">🔴</div> -->
@@ -46,9 +48,12 @@
 
     <div id="message"></div>
 
+        
 
 </div>
   </div>
+
+  
 </main>
 <script src="{{ url_for('static', filename='drag.js') }}"></script>
 {% endblock %}

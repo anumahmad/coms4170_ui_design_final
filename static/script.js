@@ -54,6 +54,6 @@ function submitAnswer(choice, qnum) {
 }
 
 function goToNext(qnum) {
-    window.location.href = `/quiz/${qnum + 1}`;
+    window.location.href = `/quiz/${qnum}`;
 }
 

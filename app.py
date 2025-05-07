@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 slide_logs = []
 
+app.secret_key = 'dev-key-123'
 
 # Data for drag and drop section
 drag_data = {
@@ -175,11 +176,13 @@ def log_event():
     
     return '', 204
 
+
 @app.route("/quiz/<int:num>")
 def quiz(num):
     if num >= len(quiz_data):
-        return redirect(url_for('quiz_result'))
+        return redirect(url_for('game', round_num=1))
     return render_template("quiz.html", question=quiz_data[num], qnum=num)
+
 
 @app.route("/submit_answer", methods=["POST"])
 def submit_answer():
@@ -205,13 +208,65 @@ def submit_answer():
 def drag():
     return render_template("drag.html", drag_data=drag_data)
 
+# @app.route("/quiz_result")
+# def quiz_result():
+#     score = 0
+#     for i, answer in enumerate(user_answers):
+#         if answer == quiz_data[i]["correct"]:
+#             score += 1
+#     return render_template("quiz_result.html", score=score, total=len(quiz_data))
+
+# @app.route("/quiz_result")
+# def quiz_result():
+#     score = 0
+#     for i, answer in enumerate(user_answers):
+#         if answer == quiz_data[i]["correct"]:
+#             score += 1
+
+#     # Get stored attempts
+#     game_attempts = session.get("game_attempts", {})
+
+#     session.clear()  # optional: clear session after using it
+
+#     return render_template(
+#         "quiz_result.html",
+#         score=score,
+#         total=len(quiz_data),
+#         game_attempts=game_attempts
+#     )
+
 @app.route("/quiz_result")
 def quiz_result():
     score = 0
+    results = []  # ⬅️ new list to store per-question info
+
     for i, answer in enumerate(user_answers):
-        if answer == quiz_data[i]["correct"]:
+        correct_answer = quiz_data[i]["correct"]
+        is_correct = (answer == correct_answer)
+        feedback = quiz_data[i]["feedback"]
+        question_text = quiz_data[i]["question"]
+        results.append({
+            "number": i + 1,
+            "question": question_text,
+            "your_answer": answer,
+            "correct_answer": correct_answer,
+            "is_correct": is_correct,
+            "feedback": feedback
+        })
+        if is_correct:
             score += 1
-    return render_template("quiz_result.html", score=score, total=len(quiz_data))
+
+    game_attempts = session.get("game_attempts", {})
+    session.clear()
+
+    return render_template(
+        "quiz_result.html",
+        score=score,
+        total=len(quiz_data),
+        game_attempts=game_attempts,
+        results=results  # ⬅️ pass the list
+    )
+
 
 @app.route('/field')
 def field():
@@ -223,6 +278,22 @@ def game(round_num):
         return redirect(url_for('game', round_num=1))
     return render_template('field.html', round_num=round_num)
 
+
+@app.route("/log_attempts", methods=["POST"])
+def log_attempts():
+    data = request.get_json()
+    round_num = data.get("round_num")
+    attempts = data.get("attempts")
+
+    # Initialize dict if not already present
+    if "game_attempts" not in session:
+        session["game_attempts"] = {}
+
+    # Store attempts for this round (as string keys, since session uses JSON)
+    session["game_attempts"][str(round_num)] = attempts
+    session.modified = True  # mark session as changed
+
+    return jsonify({"status": "logged"})
 
 if __name__ == "__main__":
     app.run(debug=True)
