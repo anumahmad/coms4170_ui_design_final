@@ -351,5 +351,21 @@ footer {
 
 .big-arrow-next {
     clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
+} 
+
+/* INTRO PARAGRAPH STYLE */
+.intro-paragraph {
+  font-size: 16px;  /* Smaller than regular paragraphs */
+  font-weight: 600;  /* More filled-in appearance */
+  line-height: 1.4;  /* Better readability */
+  color: #ffffff;    /* White text to match your theme */
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);  /* Makes text appear more solid */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Tourney", sans-serif;  /* Match your site font */
+}
+
+.learn-slide .text-columns .column .intro-paragraph {
+  font-size: 16px;  /* Override the 60px font size from .learn-slide p */
 }
 
