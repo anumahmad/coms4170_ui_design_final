@@ -13,7 +13,7 @@
   <div class="drag-content">
     <!-- Draggable scenario images -->
     <div class="draggable-container">
-            {% for scenario in drag_data.images %}
+      {% for scenario in drag_data.images %}
         <div id="{{ scenario.id }}" class="draggable scenario-image" data-is-offside="{{ scenario.is_offside|lower }}" data-feedback="{{ scenario.feedback }}">
           <video width="100%" height="100%" preload="auto" muted autoplay loop playsinline>
             <source src="{{ url_for('static', filename=scenario.image) }}" type="video/mp4">
@@ -78,8 +78,8 @@
   }
   
   .scenario-image {
-    width: 320px;
-    height: 170px;
+    width: 320px;            /* Increased width for field shape */
+    height: 190px;           /* Reduced height for 16:9 aspect ratio */
     border: 3px solid #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -96,7 +96,7 @@
   .scenario-image video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;       
     display: block;
   }
   
@@ -114,12 +114,14 @@
   
   .drop-area {
     width: 700px;  
-    height: 300px;
+    height: 350px;           /* Increased height to accommodate rectangular videos */
     border: 3px solid #e6ff57;
     border-radius: 20px;
     background: rgba(255,255,255,0.1);
     margin-top: 10px;
     transition: background 0.3s;
+    overflow: auto;          /* Added overflow to allow scrolling if many videos */
+    padding: 10px;           /* Added padding for better spacing */
   }
   
   .drop-area.hover {
@@ -208,8 +210,19 @@
         $draggable.detach().css({
           top: 0,
           left: 0,
-          position: 'relative'
+          position: 'relative',
+          margin: '10px'
         }).appendTo(this);
+        
+        // Make sure videos keep playing after being dropped
+        $draggable.find('video').each(function() {
+          // Restart the video to ensure it's playing
+          this.currentTime = 0;
+          this.play().catch(e => {
+            console.log("Autoplay prevented:", e);
+            // Some browsers block autoplay, this is a fallback
+          });
+        });
         
         // Check if the answer is correct
         if ((isOffside && dropZoneAnswer) || (!isOffside && !dropZoneAnswer)) {
@@ -259,25 +272,7 @@
           ...data
         })
       });
-    } 
-
-          // Position the draggable in the center of the drop area
-        $draggable.detach().css({
-          top: 0,
-          left: 0,
-          position: 'relative',
-          margin: '10px'
-        }).appendTo(this);
-        
-        // Make sure videos keep playing after being dropped
-        $draggable.find('video').each(function() {
-          // Restart the video to ensure it's playing
-          this.currentTime = 0;
-          this.play().catch(e => {
-            console.log("Autoplay prevented:", e);
-            // Some browsers block autoplay, this is a fallback
-          });
-        });
+    }
     
     // Track when the page loads
     sendEvent("start_drag");
