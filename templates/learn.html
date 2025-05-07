@@ -37,11 +37,12 @@
             <li>{{ rule|safe }}</li>
           {% endfor %}
         </ul>
-        {% if loop.last %}
-          <div class="next-button" onclick="window.location.href='/quiz/0'">{{ slide.button_text }}</div>
-        {% else %}
-          <div class="next-button" onclick="showSlide({{ loop.index }})">{{ slide.button_text }}</div>
-        {% endif %}
+//Direct to drag
+{% if loop.last %}
+  <div class="next-button" onclick="window.location.href='/drag'">TEST YOUR KNOWLEDGE</div>
+{% else %}
+  <div class="next-button" onclick="showSlide({{ loop.index }})">{{ slide.button_text }}</div>
+{% endif %}   
       </div>
       <div class="slide-image">
         <img src="{{ url_for('static', filename=slide.image) }}" class="match-image show" alt="Slide {{ slide.id }}">
