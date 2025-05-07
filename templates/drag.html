@@ -51,110 +51,122 @@
 </div>
 
 <style>
+  /* Basic container styles */
   .drag-container {
+    width: 100%;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 20px auto;
     padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Title and instructions */
+  .drag-container h1 {
+    text-align: center;
+    margin-bottom: 15px;
   }
   
   .drag-instructions {
-    font-size: 18px;
-    margin-bottom: 30px;
     text-align: center;
-  }
-  
-  .drag-content {
-    display: flex;
-    flex-direction: column;
+    font-size: 18px;
     margin-bottom: 40px;
   }
   
-  /* This arranges the videos in a horizontal row */
-  .draggable-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+  /* Main content container */
+  .drag-content {
+    position: relative;
     width: 100%;
-    margin-bottom: 80px; /* Added more space below videos */
+    display: block;
+    margin-bottom: 50px;
   }
   
+  /* Container for the draggable videos */
+  .draggable-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 100px; /* Large margin to separate videos from dropzones */
+    padding: 0 20px;
+  }
+  
+  /* Style for each draggable video */
   .scenario-image {
-    width: 250px;
-    height: 150px;
+    display: inline-block;
+    width: 240px;
+    height: 140px;
+    margin: 10px;
     border: 3px solid #fff;
     border-radius: 10px;
     overflow: hidden;
     cursor: move;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s;
     background-color: #1e3d0e;
-    z-index: 10;
+    z-index: 5;
   }
   
   .scenario-image:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    z-index: 20;
+    z-index: 10;
   }
   
   .scenario-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
   }
   
-  /* This positions the YES/NO zones side by side */
+  /* Dropzones container - using table layout for more stability */
   .dropzones {
-    display: flex;
-    justify-content: center;
     width: 100%;
-    margin-top: 30px;
-    gap: 50px; /* More space between YES and NO */
+    display: table;
+    table-layout: fixed;
+    border-spacing: 30px 0; /* horizontal spacing */
+    margin: 0 auto;
   }
   
+  /* Individual dropzone */
   .dropzone {
+    display: table-cell;
     text-align: center;
-    width: 40%;
+    vertical-align: top;
+    width: 50%;
   }
   
-  /* Make the drop areas large enough */
+  /* YES/NO titles */
+  .dropzone h2 {
+    font-size: 60px;
+    color: #e6ff57;
+    margin: 0 0 15px 0;
+  }
+  
+  /* Drop area */
   .drop-area {
-    width: 100%;
-    max-width: 450px;
-    height: 250px;
+    height: 280px;
     border: 3px solid #e6ff57;
     border-radius: 20px;
     background: rgba(255,255,255,0.1);
-    margin: 10px auto 0;
-    padding: 10px;
+    margin: 0 auto;
     position: relative;
-  }
-  
-  /* Ensure dropped videos show up properly */
-  .drop-area .scenario-image {
-    position: absolute;
-    transform-origin: center;
-    width: 180px;
-    height: 100px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
   
   .drop-area.hover {
     background: rgba(230, 255, 87, 0.2);
   }
   
-  .dropzone h2 {
-    font-size: 60px;
-    color: #e6ff57;
-    margin: 0 0 10px 0;
+  /* Videos after being dropped */
+  .drop-area .scenario-image {
+    position: absolute;
+    width: 180px;
+    height: 100px;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
   
+  /* Feedback section */
   .feedback-container {
-    margin-top: 40px;
+    margin-top: 50px;
     text-align: center;
-    padding-bottom: 30px;
+    padding: 20px;
   }
   
   .feedback-area {
@@ -164,8 +176,9 @@
     font-weight: 500;
   }
   
+  /* Progress display */
   .progress-container {
-    margin: 15px auto;
+    margin: 20px auto;
     max-width: 500px;
   }
   
@@ -188,6 +201,7 @@
     transition: width 0.5s;
   }
   
+  /* Correct/Incorrect indicators */
   .correct {
     border-color: #4CAF50 !important;
   }
@@ -195,12 +209,31 @@
   .incorrect {
     border-color: #f44336 !important;
   }
-
-  /* Add this to ensure there's space at the bottom of the page */
+  
+  /* Continue button */
   #continue-btn {
-    margin-bottom: 40px;
+    margin: 20px 0 40px 0;
+    display: inline-block;
   }
-</style>
+  
+  /* Media query for smaller screens */
+  @media (max-width: 900px) {
+    .dropzones {
+      display: block;
+      border-spacing: 0;
+    }
+    
+    .dropzone {
+      display: block;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    
+    .drop-area {
+      max-width: 450px;
+    }
+  }
+</style> 
 
 <script>
   $(document).ready(function() {
