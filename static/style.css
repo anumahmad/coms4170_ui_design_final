@@ -414,6 +414,7 @@ footer {
 .quiz-page .quiz-answers .btn {
     font-size: 32px;
     padding: 10px 30px;
+    font-family: "Tourney", sans-serif;
 }
 .quiz-page .quiz-question-container {
     width: 100%;
