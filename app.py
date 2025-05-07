@@ -24,7 +24,7 @@ drag_data = {
         {
             "id": "drag2",
             "image": "dragVideos/DRAG_B_no-2-640w.mp4",
-            "is_offside": True,
+            "is_offside": False,  # Changed to False to match feedback
             "feedback": "This is not offside! Remember timing matters, as long as the player is onside at the moment the ball is passed, it is OK to then run into an offside position."
         },
         {
@@ -37,7 +37,7 @@ drag_data = {
             "id": "drag4",
             "image": "dragVideos/DRAG_D_an-offside-teammate-640w.mp4",
             "is_offside": True,
-            "feedback": "This is offside! The player is ahead of the second-last defender and involved in play obstructing the goalkeeper’s vision."
+            "feedback": "This is offside! The player is ahead of the second-last defender and involved in play obstructing the goalkeeper's vision."
         },
         {
             "id": "drag5",
