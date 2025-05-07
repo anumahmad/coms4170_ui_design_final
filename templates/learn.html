@@ -1,22 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 
-
 <section class="learn-slide" id="intro-slide">
-  <h1><em>What is</em> the Offside Rule?</h1>
+  <h1><em>{{ learn_data.intro.main_title.split(" is")[0] }} is</em> {{ learn_data.intro.main_title.split(" is")[1] }}</h1>
   <div class="text-columns">
     <div class="column">
-      <h3>What is the Offside Rule even for?</h3>
-      <p>If you’ve ever watched a football match, you’ve probably heard the term “offside” thrown around, often followed by some groans, cheers, or VAR jokes (a system that uses video footage to assist on-field referees in making decisions).</p>
+      <h3>{{ learn_data.intro.column1_title }}</h3>
+      <p>{{ learn_data.intro.column1_content }}</p>
     </div>
     <div class="column">
-      <h3>Why?</h3>
-      <p>In simple terms, the offside rule exists to prevent players from hanging around the opponent’s goal waiting for an easy chance to score. It keeps the game fair and strategic. It can get a bit technical, which is why even VAR (Video Assistant Referee) sometimes takes ages to decide.</p>
+      <h3>{{ learn_data.intro.column2_title }}</h3>
+      <p>{{ learn_data.intro.column2_content }}</p>
     </div>
   </div>
   <div class="speech-bubbles">
-    <div class="bubble green">“VAR works for [ rival team ] confirmed.”</div>
-    <div class="bubble white">“By the time VAR makes a decision, I’ll be at the World Cup.”</div>
+    <div class="bubble green">"{{ learn_data.intro.bubble1 }}"</div>
+    <div class="bubble white">"{{ learn_data.intro.bubble2 }}"</div>
   </div>
   <a class="big-arrow" href="#match-section">VIEW A MATCH</a>
 </section>
@@ -25,78 +24,32 @@
 <div class="checkerboard"></div>
 <br><br><br><br><br><br>
 
-<!-- Slide 0: just setup sentence -->
-<section id="match-section" class="match-slide">
-  <div class="slide-content">
-    <div class="slide-text">
-      <h1><em>What is</em> the Offside Rule?</h1>
-      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
-      <ul></ul>
-      <div class="next-button" onclick="showSlide(1)">SEE RULE</div>
+<!-- Dynamic slides from the learn_data -->
+{% for slide in learn_data.slides %}
+  <!-- First slide is visible by default, others are hidden -->
+  <section id="match-section" class="match-slide" {% if not loop.first %}style="display:none;"{% endif %}>
+    <div class="slide-content">
+      <div class="slide-text">
+        <h1><em>{{ slide.title.split(" is")[0] }} is</em> {{ slide.title.split(" is")[1] }}</h1>
+        <p>{{ slide.text|safe }}</p>
+        <ul>
+          {% for rule in slide.rules %}
+            <li>{{ rule|safe }}</li>
+          {% endfor %}
+        </ul>
+        {% if loop.last %}
+          <div class="next-button" onclick="window.location.href='/quiz/0'">{{ slide.button_text }}</div>
+        {% else %}
+          <div class="next-button" onclick="showSlide({{ loop.index }})">{{ slide.button_text }}</div>
+        {% endif %}
+      </div>
+      <div class="slide-image">
+        <img src="{{ url_for('static', filename=slide.image) }}" class="match-image show" alt="Slide {{ slide.id }}">
+        <img class="match-image overlay" alt="Crossfade">
+      </div>
     </div>
-    <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/base_learning.png') }}" class="match-image show" alt="Slide 0">
-      <img class="match-image overlay" alt="Crossfade">
-    </div>
-  </div>
-</section>
-
-<!-- Slide 1 -->
-<section class="match-slide" style="display:none;">
-  <div class="slide-content">
-    <div class="slide-text">
-      <h1><em>What is</em> the Offside Rule?</h1>
-      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
-      <ul>
-        <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
-      </ul>
-      <div class="next-button" onclick="showSlide(2)">SEE RULE</div>
-    </div>
-    <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/base_2.png') }}" class="match-image show" alt="Slide 1">
-      <img class="match-image overlay" alt="Crossfade">
-    </div>
-  </div>
-</section>
-
-<!-- Slide 2 -->
-<section class="match-slide" style="display:none;">
-  <div class="slide-content">
-    <div class="slide-text">
-      <h1><em>What is</em> the Offside Rule?</h1>
-      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
-      <ul>
-        <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
-        <li><strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).</li>
-      </ul>
-      <div class="next-button" onclick="showSlide(3)">SEE RULE</div>
-    </div>
-    <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/base_3.png') }}" class="match-image show" alt="Slide 2">
-      <img class="match-image overlay" alt="Crossfade">
-    </div>
-  </div>
-</section>
-
-<!-- Slide 3 -->
-<section class="match-slide" style="display:none;">
-  <div class="slide-content">
-    <div class="slide-text">
-      <h1><em>What is</em> the Offside Rule?</h1>
-      <p>A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:</p>
-      <ul>
-        <li><strong>1.</strong> They are <strong>closer to the opponent’s goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.</li>
-        <li><strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).</li>
-        <li><strong>3.</strong> They are in the <strong>opponent’s half of the field</strong>.</li>
-      </ul>
-      <div class="next-button" onclick="window.location.href='/quiz/0'">START QUIZ</div>
-    </div>
-    <div class="slide-image">
-      <img src="{{ url_for('static', filename='pdf_images/base_4.png') }}" class="match-image show" alt="Slide 3">
-      <img class="match-image overlay" alt="Crossfade">
-    </div>
-  </div>
-</section>
+  </section>
+{% endfor %}
 
 <br><br><br><br><br><br>
 <div class="checkerboard"></div>
@@ -149,9 +102,13 @@ function showSlide(index) {
 }
 
 // Track when the user clicks to start the quiz
-document.querySelector(".next-button[onclick*='quiz']")
-  .addEventListener('click', () => {
-    sendEvent("start_quiz");
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  const quizButton = document.querySelector(".next-button[onclick*='quiz']");
+  if (quizButton) {
+    quizButton.addEventListener('click', () => {
+      sendEvent("start_quiz");
+    });
+  }
+});
 </script>
 {% endblock %}
