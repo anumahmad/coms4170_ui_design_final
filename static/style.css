@@ -191,6 +191,7 @@ footer {
 
 .checkerboardblackfirst {
   height: 40px;
+  width: 100%;
   background: repeating-linear-gradient(
       90deg,
       black 0 40px,
@@ -202,6 +203,7 @@ footer {
 
 .checkerboardwhitefirst {
   height: 40px;
+  width: 100%;
   background: repeating-linear-gradient(
       90deg,
       white 0 40px,
