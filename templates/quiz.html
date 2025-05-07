@@ -14,16 +14,18 @@
     </div>
 
     <div class="quiz-right">
-       <div class="quiz-question-container">
-    <h1>{{ question.question }}</h1>
-    <div class="quiz-answers">
-        <button class="btn" onclick="submitAnswer('yes', {{ qnum }})">YES</button>
-        <button class="btn" onclick="submitAnswer('no', {{ qnum }})">NO</button>
-    </div>
-</div>
+        <div class="quiz-question-container">
+            <h1>{{ question.question }}</h1>
+            <div class="quiz-answers">
+                <button class="btn" onclick="submitAnswer('yes', {{ qnum }})">YES</button>
+                <button class="btn" onclick="submitAnswer('no', {{ qnum }})">NO</button>
+            </div>
+        </div>
 
         <p id="feedback" style="margin-top: 20px;"></p>
-         <button id="nextBtn" class="big-arrow-next" style="display:none; margin-top: 20px;" onclick="goToNext({{ qnum }})">Next Question</button>
+
+        <!-- NEXT BUTTON here only (no duplicate) -->
+        <button id="nextBtn" class="big-arrow-next" style="display:none; margin-top: 20px;" onclick="goToNext({{ qnum }})">Next Question</button>
     </div>
 </div>
 
@@ -31,7 +33,6 @@
     {% if qnum > 0 %}
     <button class="big-arrow-back" onclick="goToNext({{ qnum - 1 }})">Back</button>
     {% endif %}
-    <button id="nextBtn" class="big-arrow-next" style="display:none;" onclick="goToNext({{ qnum }})">Next</button>
 </div>
 
 <footer>
