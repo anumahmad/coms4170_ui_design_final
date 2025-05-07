@@ -18,13 +18,35 @@ function submitAnswer(choice, qnum) {
     .then(data => {
         // Show feedback
         const feedbackEl = document.getElementById("feedback");
-        if (data.correct) {
-            feedbackEl.textContent = "Correct! " + data.feedback;
-            feedbackEl.style.color = "green";
-        } else {
-            feedbackEl.textContent = "Wrong! " + data.feedback;
-            feedbackEl.style.color = "red";
-        }
+        
+        // Clear existing feedback
+    feedbackEl.innerHTML = '';
+
+    // Create main feedback (Correct! or Wrong!)
+    const resultText = document.createElement('div');
+    resultText.classList.add('feedback-result');
+    resultText.textContent = data.correct ? "Correct!" : "Wrong!";
+
+    // Add correct or wrong class
+    if (data.correct) {
+        resultText.classList.add("correct");
+    } else {
+        resultText.classList.add("wrong");
+    }
+
+    // Create explanation text
+    const explanationText = document.createElement("div");
+    explanationText.textContent = data.feedback;
+    explanationText.classList.add("feedback-explanation");
+
+    // Append
+    feedbackEl.appendChild(resultText);
+    feedbackEl.appendChild(explanationText);
+
+        
+        // Hide question and answer buttons
+        const questionContainer = document.querySelector(".quiz-question-container");
+        questionContainer.style.display = "none";
 
         // Show next button
         document.getElementById("nextBtn").style.display = "inline-block";

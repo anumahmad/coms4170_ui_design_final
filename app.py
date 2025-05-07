@@ -9,36 +9,137 @@ app = Flask(__name__)
 
 slide_logs = []
 
+
+# Data for drag and drop section
+drag_data = {
+    "title": "Drag the Offside Plays",
+    "description": "Sort these plays by dragging them to the correct category. Is the highlighted player in an offside position?",
+    "images": [
+        {
+            "id": "drag1",
+            "image": "dragVideos/DRAG_A_a-classic-example-640w.mp4",
+            "is_offside": True,
+            "feedback": "This is offside! The player is ahead of the second-last defender. In fact, this is a classic example!"
+        },
+        {
+            "id": "drag2",
+            "image": "dragVideos/DRAG_B_no-2-640w.mp4",
+            "is_offside": False,  # Changed to False to match feedback
+            "feedback": "This is not offside! Remember timing matters, as long as the player is onside at the moment the ball is passed, it is OK to then run into an offside position."
+        },
+        {
+            "id": "drag3",
+            "image": "dragVideos/DRAG_C_no-3-640w.mp4",
+            "is_offside": False,
+            "feedback": "This is not offside! What if the attacking player is even with the last defender when the pass is made, as is the case here? In that situation, the player is not offside. The player must be past the last defender to be offside, even if it is by a margin so slender that it can only be established after a replay. Or sometimes several."
+        },
+        {
+            "id": "drag4",
+            "image": "dragVideos/DRAG_D_an-offside-teammate-640w.mp4",
+            "is_offside": True,
+            "feedback": "This is offside! The player is ahead of the second-last defender and involved in play obstructing the goalkeeper's vision."
+        },
+        {
+            "id": "drag5",
+            "image": "dragVideos/DRAG_E_no-4-b-640w.mp4",
+            "is_offside": False,
+            "feedback": "This is not offside! In this case, the attacking player uninvolved in the action is far enough away to be considered what is called passively offside. As long as this player stays out of the play, the red team can continue the attack."
+        }
+    ]
+}
+
+# Data for the learn section
+learn_data = {
+    "title": "What is the Offside Rule?",
+    "intro": {
+        "main_title": "What is the Offside Rule?",
+        "column1_title": "What is the Offside Rule even for?",
+        "column1_content": "If you've ever watched a football match, you've probably heard the term \"offside\" thrown around, often followed by some groans, cheers, or VAR jokes (a system that uses video footage to assist on-field referees in making decisions).",
+        "column2_title": "Why?",
+        "column2_content": "In simple terms, the offside rule exists to prevent players from hanging around the opponent's goal waiting for an easy chance to score. It keeps the game fair and strategic. It can get a bit technical, which is why even VAR (Video Assistant Referee) sometimes takes ages to decide.",
+        "bubble1": "VAR works for [ rival team ] confirmed.",
+        "bubble2": "By the time VAR makes a decision, I'll be at the World Cup."
+    },
+    "slides": [
+        {
+            "id": 0,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [],
+            "image": "pdf_images/base_learning.png",
+            "button_text": "SEE RULE"
+        },
+        {
+            "id": 1,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [
+                "<strong>1.</strong> They are <strong>closer to the opponent's goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>."
+            ],
+            "image": "pdf_images/base_2.png",
+            "button_text": "SEE RULE"
+        },
+        {
+            "id": 2,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [
+                "<strong>1.</strong> They are <strong>closer to the opponent's goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.",
+                "<strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play)."
+            ],
+            "image": "pdf_images/base_3.png",
+            "button_text": "SEE RULE"
+        },
+        {
+            "id": 3,
+            "title": "What is the Offside Rule?",
+            "text": "A player is in an <strong>offside position</strong> if, at the moment the ball is played to them:",
+            "rules": [
+                "<strong>1.</strong> They are <strong>closer to the opponent's goal line</strong> than both the ball <em>and</em> the <strong>second-to-last defender</strong>.",
+                "<strong>2.</strong> They are <strong>actively involved in play</strong> (e.g., receiving the ball or interfering with play).",
+                "<strong>3.</strong> They are in the <strong>opponent's half of the field</strong>."
+            ],
+            "image": "pdf_images/base_4.png",
+            "button_text": "START QUIZ"
+        }
+    ]
+}
+
 quiz_data = [
     {
+        "header": "Section 1: Offside - Yes or No",
         "image": "pdf_images/question0.png",
-        "question": "Offside?",
+        "question": "Is this an offsides play?",
         "correct": "yes",
         "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
 
     },
     {
+        "header": "Section 1: Offside - Yes or No",
         "image": "pdf_images/question1.png",
-        "question": "Offside?",
+        "question": "Is this an offsides play?",
         "correct": "yes",
         "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
 
     },
     {
+        "header": "Section 1: Offside - Yes or No",
         "image": "pdf_images/question2.png",
-        "question": "Offside?",
+        "question": "Is this an offsides play?",
         "correct": "no",
         "feedback": "The player in question is in their own half! They are onside."
     },
     {
+        "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_24_img_1.jpeg",
-        "question": "Offside?",
+        "question": "Is this an offsides play?",
         "correct": "yes",
         "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
     },
     {
+        "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_27_img_1.jpeg",
-        "question": "Offside?",
+        "question": "Is this an offsides play?",
         "correct": "no",
         "feedback": "The player in question is NOT closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them! They are onside."
     },
@@ -57,10 +158,9 @@ def log_slide():
     print("Slide log:", data)  # optional for debugging
     return jsonify({"status": "ok"})
 
-
 @app.route("/learn")
 def learn():
-    return render_template("learn.html")
+    return render_template("learn.html", learn_data=learn_data)
 
 @app.route('/log_event', methods=['POST'])
 def log_event():
@@ -103,7 +203,7 @@ def submit_answer():
 
 @app.route("/drag")
 def drag():
-    return render_template("drag.html")
+    return render_template("drag.html", drag_data=drag_data)
 
 @app.route("/quiz_result")
 def quiz_result():
