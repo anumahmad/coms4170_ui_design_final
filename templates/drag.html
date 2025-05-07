@@ -64,7 +64,7 @@
   
   .drag-content {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 40px;
     margin-bottom: 40px;
   }
@@ -105,23 +105,37 @@
     justify-content: space-between;  
     width: 100%;
     margin-top: 30px;
-    flex-wrap: wrap;  
+    flex-wrap: nowrap;      /* Changed from wrap to nowrap to prevent wrapping */
+    gap: 30px;              /* Added gap between the zones */
   }
   
   .dropzone {
     text-align: center;
+    flex: 1;                /* Make each dropzone take equal space */
+    max-width: 600px;       /* Set maximum width to match the drop-area */
   }
   
   .drop-area {
-    width: 700px;  
-    height: 350px;           /* Increased height to accommodate rectangular videos */
+    width: 600px;           /* Reduced from 700px to 600px */
+    height: 280px;          /* Reduced from 350px to 280px */
     border: 3px solid #e6ff57;
     border-radius: 20px;
     background: rgba(255,255,255,0.1);
     margin-top: 10px;
     transition: background 0.3s;
-    overflow: auto;          /* Added overflow to allow scrolling if many videos */
-    padding: 10px;           /* Added padding for better spacing */
+    overflow: hidden;       /* Changed from auto to hidden - no scrolling */
+    padding: 10px;          /* Added padding for better spacing */
+    position: relative;     /* For absolute positioning of children */
+  }
+  
+  /* Style for videos when they're in the drop area */
+  .drop-area .scenario-image {
+    position: absolute;     /* Position absolutely within the drop area */
+    transform-origin: center;  /* Scale from center */
+    width: 240px;           /* Make dropped videos slightly smaller */
+    height: 142px;          /* Maintain aspect ratio */
+    transition: all 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Add shadow for 3D effect */
   }
   
   .drop-area.hover {
@@ -272,7 +286,32 @@
           ...data
         })
       });
-    }
+    } 
+
+          // Position the draggable with overlapping effect in the drop area
+        const $dropArea = $(this);
+        const existingItems = $dropArea.children('.scenario-image').length;
+        const dropAreaWidth = $dropArea.width();
+        const dropAreaHeight = $dropArea.height();
+        
+        // Detach and add to drop area
+        $draggable.detach().appendTo($dropArea);
+        
+        // Calculate position with slight randomness for natural look
+        const randomLeftOffset = Math.random() * 100 - 50; // -50 to +50px
+        const randomTopOffset = Math.random() * 80 - 40;   // -40 to +40px
+        const randomRotation = Math.random() * 16 - 8;     // -8 to +8 degrees
+        
+        // Position in the center with offsets
+        $draggable.css({
+          position: 'absolute',
+          left: (dropAreaWidth / 2) - 120 + randomLeftOffset + 'px',
+          top: (dropAreaHeight / 2) - 71 + randomTopOffset + 'px',
+          margin: 0,
+          transform: `rotate(${randomRotation}deg)`,
+          transition: 'all 0.3s ease',
+          zIndex: 10 + existingItems
+        });
     
     // Track when the page loads
     sendEvent("start_drag");
