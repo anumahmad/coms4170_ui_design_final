@@ -351,7 +351,7 @@ footer {
 
 .quiz-page .quiz-right {
     background-color: #1e3d0e;
-    padding: 40px;
+    padding: 80px 40px 40px 40px; 
     border-radius: 10px;
     display: flex;
     justify-content: center;
