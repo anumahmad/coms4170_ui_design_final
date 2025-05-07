@@ -26,6 +26,10 @@ function submitAnswer(choice, qnum) {
             feedbackEl.style.color = "red";
         }
 
+        // Hide question and answer buttons
+        const questionContainer = document.querySelector(".quiz-question-container");
+        questionContainer.style.display = "none";
+
         // Show next button
         document.getElementById("nextBtn").style.display = "inline-block";
     });
