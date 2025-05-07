@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<div class="quiz-page">
 
 <div class="quiz-content">
     <div class="quiz-left">
@@ -24,10 +25,10 @@
     <button id="nextBtn" class="big-arrow-next" style="display:none;" onclick="goToNext({{ qnum }})">Next</button>
 </div>
 
-<footer class="footer">
-  <div class="checkerboardblackfirst"></div>
+<footer>
+    <div class="checkerboardblackfirst"></div>
 </footer>
 
+</div>
 
 {% endblock %}
-
