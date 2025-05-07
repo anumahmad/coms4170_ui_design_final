@@ -9,6 +9,44 @@ app = Flask(__name__)
 
 slide_logs = []
 
+# Data for drag and drop section
+drag_data = {
+    "title": "Drag the Offside Plays",
+    "description": "Sort these plays by dragging them to the correct category. Is the highlighted player (marked with ×) in an offside position?",
+    "images": [
+        {
+            "id": "drag1",
+            "image": "pdf_images/drag_scenario_1.png",
+            "is_offside": True,
+            "feedback": "This is offside! The player is ahead of the second-last defender."
+        },
+        {
+            "id": "drag2",
+            "image": "pdf_images/drag_scenario_2.png",
+            "is_offside": False,
+            "feedback": "This is not offside! The player is behind the second-last defender."
+        },
+        {
+            "id": "drag3",
+            "image": "pdf_images/drag_scenario_3.png",
+            "is_offside": True,
+            "feedback": "This is offside! The player is ahead of the second-last defender and the ball."
+        },
+        {
+            "id": "drag4",
+            "image": "pdf_images/drag_scenario_4.png",
+            "is_offside": False,
+            "feedback": "This is not offside! The player is in their own half."
+        },
+        {
+            "id": "drag5",
+            "image": "pdf_images/drag_scenario_5.png",
+            "is_offside": True,
+            "feedback": "This is offside! The player is ahead of the second-last defender and actively involved in play."
+        }
+    ]
+}
+
 # Data for the learn section
 learn_data = {
     "title": "What is the Offside Rule?",
