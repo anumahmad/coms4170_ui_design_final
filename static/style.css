@@ -305,7 +305,7 @@ footer {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .quiz-page .quiz-content {
