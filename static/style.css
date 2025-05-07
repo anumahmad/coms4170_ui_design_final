@@ -349,6 +349,7 @@ footer {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    object-fit: contain;
 }
 
 .quiz-page .quiz-right {
