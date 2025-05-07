@@ -437,6 +437,9 @@ footer {
 
 .quiz-page #feedback .feedback-result:contains("Wrong!") {
     color: red;
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 10px;
 }
 
 .quiz-page #feedback .feedback-explanation {
@@ -445,6 +448,7 @@ footer {
     max-width: 500px;
     margin: 0 auto;
     line-height: 1.4;
+    font-weight: 700;
 }
 
 /* INTRO PARAGRAPH STYLE */
