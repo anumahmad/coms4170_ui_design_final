@@ -310,7 +310,7 @@ footer {
 
 .quiz-page .quiz-content {
     display: grid;
-    grid-template-columns: 900px 500px;
+    grid-template-columns: 800px 500px;
     gap: 20px;
     max-width: 1500px;
     margin: 60px auto 40px auto;
