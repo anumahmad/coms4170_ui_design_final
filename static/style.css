@@ -350,6 +350,7 @@ footer {
     height: auto;
     border-radius: 10px;
     object-fit: contain;
+    display: block;
 }
 
 .quiz-page .quiz-right {
