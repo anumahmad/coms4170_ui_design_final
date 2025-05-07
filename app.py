@@ -9,40 +9,41 @@ app = Flask(__name__)
 
 slide_logs = []
 
+
 # Data for drag and drop section
 drag_data = {
     "title": "Drag the Offside Plays",
-    "description": "Sort these plays by dragging them to the correct category. Is the highlighted player (marked with ×) in an offside position?",
+    "description": "Sort these plays by dragging them to the correct category. Is the highlighted player in an offside position?",
     "images": [
         {
             "id": "drag1",
-            "image": "pdf_images/drag_scenario_1.png",
+            "image": "dragVideos/DRAG_A_a-classic-example-640w.mp4",
             "is_offside": True,
-            "feedback": "This is offside! The player is ahead of the second-last defender."
+            "feedback": "This is offside! The player is ahead of the second-last defender. In fact, this is a classic example!"
         },
         {
             "id": "drag2",
-            "image": "pdf_images/drag_scenario_2.png",
-            "is_offside": False,
-            "feedback": "This is not offside! The player is behind the second-last defender."
+            "image": "dragVideos/DRAG_B_no-2-640w.mp4",
+            "is_offside": True,
+            "feedback": "This is not offside! Remember timing matters, as long as the player is onside at the moment the ball is passed, it is OK to then run into an offside position."
         },
         {
             "id": "drag3",
-            "image": "pdf_images/drag_scenario_3.png",
-            "is_offside": True,
-            "feedback": "This is offside! The player is ahead of the second-last defender and the ball."
+            "image": "dragVideos/DRAG_C_no-3-640w.mp4",
+            "is_offside": False,
+            "feedback": "This is not offside! What if the attacking player is even with the last defender when the pass is made, as is the case here? In that situation, the player is not offside. The player must be past the last defender to be offside, even if it is by a margin so slender that it can only be established after a replay. Or sometimes several."
         },
         {
             "id": "drag4",
-            "image": "pdf_images/drag_scenario_4.png",
-            "is_offside": False,
-            "feedback": "This is not offside! The player is in their own half."
+            "image": "dragVideos/DRAG_D_an-offside-teammate-640w.mp4",
+            "is_offside": True,
+            "feedback": "This is offside! The player is ahead of the second-last defender and involved in play obstructing the goalkeeper’s vision."
         },
         {
             "id": "drag5",
-            "image": "pdf_images/drag_scenario_5.png",
-            "is_offside": True,
-            "feedback": "This is offside! The player is ahead of the second-last defender and actively involved in play."
+            "image": "dragVideos/DRAG_E_no-4-b-640w.mp4",
+            "is_offside": False,
+            "feedback": "This is not offside! In this case, the attacking player uninvolved in the action is far enough away to be considered what is called passively offside. As long as this player stays out of the play, the red team can continue the attack."
         }
     ]
 }
