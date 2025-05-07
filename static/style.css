@@ -258,7 +258,7 @@ footer {
 
 /* QUIZ IMAGE STYLES */
 .quiz-image {
-  width: 500px;
+  width: 700px;
   max-width: 90%;
   height: auto;
   display: block;
@@ -329,13 +329,13 @@ footer {
 
 .quiz-page .quiz-header h2 {
     font-size: 20px;
-    color: #d4ff4a;
+    color: white;
     font-weight: 900;
     margin-bottom: 10px;
 }
 
 .quiz-page .quiz-header p {
-    font-size: 24px;
+    font-size: 20px;
     color: white;
 }
 
