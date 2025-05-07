@@ -15,21 +15,25 @@
     <div class="draggable-container">
       {% for scenario in drag_data.images %}
         <div id="{{ scenario.id }}" class="draggable scenario-image" data-is-offside="{{ scenario.is_offside|lower }}" data-feedback="{{ scenario.feedback }}">
-          <img src="{{ url_for('static', filename=scenario.image) }}" alt="Football scenario {{ loop.index }}">
+          <img src="{{ url_for('static', filename=scenario.image) }}" alt="Football scenario {{ loop.index }}" onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/soccer_ball.png') }}'; this.style.padding='20px'; this.parentNode.classList.add('image-error');">
         </div>
       {% endfor %}
     </div>
     
-    <!-- Drop zones -->
+    <!-- Drop zones - now full-height and at edges -->
     <div class="dropzones">
       <div id="offside-zone" class="dropzone offside-zone">
         <h2>YES</h2>
-        <div class="drop-area" data-answer="true"></div>
+        <div class="drop-area" data-answer="true">
+          <div class="dropped-items"></div>
+        </div>
       </div>
       
       <div id="not-offside-zone" class="dropzone not-offside-zone">
         <h2>NO</h2>
-        <div class="drop-area" data-answer="false"></div>
+        <div class="drop-area" data-answer="false">
+          <div class="dropped-items"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -48,22 +52,28 @@
 </div>
 
 <style>
-  .drag-container {
-    max-width: 1200px;
-    margin: 40px auto;
+
+    .drag-container {
+    max-width: 100%;
+    margin: 40px 0 0 0;
     padding: 20px;
+    position: relative;
+    box-sizing: border-box;
   }
   
   .drag-instructions {
     font-size: 18px;
     margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .drag-content {
     display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-bottom: 40px;
+    flex-direction: column;
+    min-height: 500px;
+    position: relative;
   }
   
   .draggable-container {
@@ -72,49 +82,90 @@
     gap: 20px;
     justify-content: center;
     width: 100%;
+    margin: 0 auto 30px auto;
+    max-width: 800px;
+    z-index: 2;
   }
   
   .scenario-image {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border: 3px solid #fff;
     border-radius: 10px;
     overflow: hidden;
     cursor: move;
     transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #4a7a2d; /* Light green background */
+    position: relative;
+    z-index: 10;
   }
   
   .scenario-image:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 20;
   }
   
   .scenario-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* Changed from cover to contain */
+    display: block;
   }
   
   .dropzones {
     display: flex;
-    justify-content: center;
-    gap: 100px;
+    justify-content: space-between;
     width: 100%;
-    margin-top: 30px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none; /* So it doesn't block draggable items */
   }
   
   .dropzone {
     text-align: center;
+    width: 30%;
+    height: 100%;
+    pointer-events: none; /* This ensures clicks go through to the drop-area */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .offside-zone {
+    margin-right: auto; /* Push to left edge */
+  }
+  
+  .not-offside-zone {
+    margin-left: auto; /* Push to right edge */
   }
   
   .drop-area {
-    width: 250px;
-    height: 300px;
+    flex: 1;
+    width: 100%;
+    min-height: 500px;
     border: 3px dashed #e6ff57;
     border-radius: 20px;
     background: rgba(255,255,255,0.1);
     margin-top: 10px;
     transition: background 0.3s;
+    pointer-events: auto; /* Make drop area clickable */
+    padding: 10px;
+    overflow-y: auto; /* Add scrolling if too many items */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .drop-area .dropped-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
   }
   
   .drop-area.hover {
@@ -122,9 +173,10 @@
   }
   
   .dropzone h2 {
-    font-size: 40px;
+    font-size: 60px;
     color: #e6ff57;
-    margin: 0;
+    margin: 10px 0;
+    pointer-events: auto;
   }
   
   .feedback-container {
@@ -172,6 +224,7 @@
   }
 </style>
 
+
 <script>
   $(document).ready(function() {
     let completedCount = 0;
@@ -186,7 +239,9 @@
       },
       stop: function(event, ui) {
         $(this).removeClass("dragging");
-      }
+      },
+      // Center the item by its center, not top-left corner
+      cursorAt: { top: 90, left: 90 }
     });
     
     // Make drop areas droppable
@@ -199,12 +254,17 @@
         const dropZoneAnswer = $(this).data("answer") === true;
         const feedback = $draggable.data("feedback");
         
-        // Position the draggable in the center of the drop area
+        // Find the dropped-items container within this drop area
+        const $droppedItemsContainer = $(this).find(".dropped-items");
+        
+        // Position the draggable in the dropped-items container
         $draggable.detach().css({
           top: 0,
           left: 0,
-          position: 'relative'
-        }).appendTo(this);
+          position: 'relative',
+          margin: '5px auto',
+          transform: 'none'
+        }).appendTo($droppedItemsContainer);
         
         // Check if the answer is correct
         if ((isOffside && dropZoneAnswer) || (!isOffside && !dropZoneAnswer)) {
@@ -260,5 +320,3 @@
     sendEvent("start_drag");
   });
 </script>
-
-{% endblock %}
