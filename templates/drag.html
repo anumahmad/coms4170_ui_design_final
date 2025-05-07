@@ -1,8 +1,339 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Drag the Player to a Legal Position</h2>
-<div id="field">
-    <div class="player" draggable="true">⚽</div>
-    <!-- Drop zones would go here -->
+
+<!-- Add jQuery and jQuery UI libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+<div class="drag-container">
+  <h1>{{ drag_data.title }}</h1>
+  <p class="drag-instructions">{{ drag_data.description }}</p>
+  
+  <div class="drag-content">
+    <!-- Draggable scenario images -->
+    <div class="draggable-container">
+      {% for scenario in drag_data.images %}
+        <div id="{{ scenario.id }}" class="draggable scenario-image" data-is-offside="{{ 'true' if scenario.is_offside else 'false' }}" data-feedback="{{ scenario.feedback }}">
+          <video width="100%" height="100%" preload="auto" muted autoplay loop playsinline>
+            <source src="{{ url_for('static', filename=scenario.image) }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Drop zones -->
+    <div class="dropzones">
+      <div id="offside-zone" class="dropzone offside-zone">
+        <h2>YES</h2>
+        <div class="drop-area" data-answer="true"></div>
+      </div>
+      
+      <div id="not-offside-zone" class="dropzone not-offside-zone">
+        <h2>NO</h2>
+        <div class="drop-area" data-answer="false"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Feedback area -->
+  <div class="feedback-container">
+    <div id="feedback-area" class="feedback-area"></div>
+    <div class="progress-container">
+      <div class="progress-text">Progress: <span id="completed-count">0</span>/{{ drag_data.images|length }}</div>
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+    <button id="continue-btn" class="big-arrow" style="display: none;" onclick="window.location.href='/quiz/0'">CONTINUE TO QUIZ</button>
+  </div>
 </div>
+
+<style>
+  .drag-container {
+    max-width: 1600px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  .drag-instructions {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .drag-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .draggable-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .scenario-image {
+    width: 320px;            /* Increased width for field shape */
+    height: 190px;           /* Reduced height for 16:9 aspect ratio */
+    border: 3px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: move;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #1e3d0e;
+  }
+  
+  .scenario-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .scenario-image video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       
+    display: block;
+  }
+  
+.dropzones {
+  display: flex;
+  justify-content: center;  /* Changed from space-between to center */
+  width: 100%;
+  margin-top: 20px;        /* Reduced from 30px */
+  margin-bottom: 20px;     /* Added to reduce space below */
+  flex-wrap: nowrap;
+  gap: 0px;                /* Removed gap completely */
+}
+
+  
+.dropzone {
+  text-align: center;
+  flex: 0 0 auto;          /* Changed from flex: 1 to prevent stretching */
+  width: 45%;              /* Set explicit width instead of max-width */
+  margin: 0 5px;           /* Small margin for minimal spacing */
+}
+  
+.drop-area {
+  width: 100%;             /* Full width of parent */
+  max-width: 550px;        /* Slightly reduced from 600px */
+  height: 280px;
+  border: 3px solid #e6ff57;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  margin: 10px auto 0;     /* Centered */
+  transition: background 0.3s;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}
+  
+  /* Style for videos when they're in the drop area */
+  .drop-area .scenario-image {
+    position: absolute;     /* Position absolutely within the drop area */
+    transform-origin: center;  /* Scale from center */
+    width: 240px;           /* Make dropped videos slightly smaller */
+    height: 142px;          /* Maintain aspect ratio */
+    transition: all 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Add shadow for 3D effect */
+  }
+  
+  .drop-area.hover {
+    background: rgba(230, 255, 87, 0.2);
+  }
+  
+  .dropzone h2 {
+    font-size: 40px;
+    color: #e6ff57;
+    margin: 0;
+  }
+  
+.feedback-container {
+  margin-top: 10px;        
+  text-align: center;
+}
+  
+  .feedback-area {
+    min-height: 80px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+.progress-container {
+  margin: 15px auto;     
+  max-width: 500px;
+}
+  .progress-text {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .progress-bar {
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: #e6ff57;
+    width: 0%;
+    transition: width 0.5s;
+  }
+  
+  .correct {
+    border-color: #4CAF50 !important;
+  }
+  
+  .incorrect {
+    border-color: #f44336 !important;
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    let completedCount = 0;
+    const totalScenarios = {{ drag_data.images|length }};
+    
+    // DEBUG: Log all draggable elements with their offside values
+    $(".draggable").each(function() {
+      console.log(
+        "Scenario", $(this).attr("id"), 
+        "data-is-offside =", $(this).data("is-offside"),
+        "type =", typeof $(this).data("is-offside")
+      );
+    });
+    
+    // Make scenario images draggable
+    
+    // Make scenario images draggable
+    $(".draggable").draggable({
+      revert: "invalid",
+      zIndex: 100,
+      start: function(event, ui) {
+        $(this).addClass("dragging");
+      },
+      stop: function(event, ui) {
+        $(this).removeClass("dragging");
+      }
+    });
+    
+    // Make drop areas droppable
+    $(".drop-area").droppable({
+      accept: ".draggable",
+      hoverClass: "hover",
+      drop: function(event, ui) {
+        const $draggable = $(ui.draggable);
+        const isOffside = $draggable.data("is-offside") === true || $draggable.data("is-offside") === "true";
+        const dropZoneAnswer = $(this).data("answer") === true;
+        const feedback = $draggable.data("feedback");
+        
+        // Position the draggable with overlapping effect in the drop area
+        const $dropArea = $(this);
+        const existingItems = $dropArea.children('.scenario-image').length;
+        const dropAreaWidth = $dropArea.width();
+        const dropAreaHeight = $dropArea.height();
+        
+        // Detach and add to drop area
+        $draggable.detach().appendTo($dropArea);
+        
+        // Calculate position with slight randomness for natural look
+        const randomLeftOffset = Math.random() * 100 - 50; // -50 to +50px
+        const randomTopOffset = Math.random() * 80 - 40;   // -40 to +40px
+        const randomRotation = Math.random() * 16 - 8;     // -8 to +8 degrees
+        
+        // Position in the center with offsets
+        $draggable.css({
+          position: 'absolute',
+          left: (dropAreaWidth / 2) - 120 + randomLeftOffset + 'px',
+          top: (dropAreaHeight / 2) - 71 + randomTopOffset + 'px',
+          margin: 0,
+          transform: `rotate(${randomRotation}deg)`,
+          transition: 'all 0.3s ease',
+          zIndex: 10 + existingItems
+        });
+        
+        // Make sure videos keep playing after being dropped
+        $draggable.find('video').each(function() {
+          // Restart the video to ensure it's playing
+          this.currentTime = 0;
+          this.play().catch(e => {
+            console.log("Autoplay prevented:", e);
+            // Some browsers block autoplay, this is a fallback
+          });
+        });
+        
+        // Check if the answer is correct - being very explicit
+        const isCorrect = (isOffside === true && dropZoneAnswer === true) || 
+                         (isOffside === false && dropZoneAnswer === false);
+        
+        // DEBUG: Log values to console
+        console.log("Drop event:", {
+          id: $draggable.attr("id"),
+          isOffside: isOffside,
+          typeOfIsOffside: typeof isOffside,
+          dropZoneAnswer: dropZoneAnswer,
+          typeOfDropZoneAnswer: typeof dropZoneAnswer,
+          isCorrect: isCorrect
+        });
+        
+        if (isCorrect) {
+          $draggable.addClass("correct");
+          $("#feedback-area").html(`<span style="color: #4CAF50;">Correct!</span> ${feedback}`);
+        } else {
+          $draggable.addClass("incorrect");
+          $("#feedback-area").html(`<span style="color: #f44336;">Incorrect!</span> ${feedback}`);
+        } 
+        
+        // Disable dragging after drop
+        $draggable.draggable("disable");
+        
+        // Update progress
+        completedCount++;
+        $("#completed-count").text(completedCount);
+        const progressPercentage = (completedCount / totalScenarios) * 100;
+        $("#progress-fill").css("width", `${progressPercentage}%`);
+        
+        // Send event to server
+        sendEvent("drag_drop", {
+          scenario_id: $draggable.attr("id"),
+          is_correct: (isOffside && dropZoneAnswer) || (!isOffside && !dropZoneAnswer),
+          user_answer: dropZoneAnswer ? "offside" : "not_offside",
+          correct_answer: isOffside ? "offside" : "not_offside"
+        });
+        
+        // Show continue button if all scenarios are completed
+        if (completedCount === totalScenarios) {
+          $("#continue-btn").fadeIn();
+          sendEvent("drag_complete");
+        }
+      }
+    });
+    
+    // Function to send event data to the server
+    function sendEvent(type, data = {}) {
+      fetch('/log_event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          event_type: type,
+          slide_number: null,
+          timestamp: new Date().toISOString(),
+          ...data
+        })
+      });
+    }
+    
+    // Track when the page loads
+    sendEvent("start_drag");
+  });
+</script>
 {% endblock %}

@@ -258,11 +258,11 @@ footer {
 
 /* QUIZ IMAGE STYLES */
 .quiz-image {
-  width: 500px;
-  max-width: 90%;
+  width: 100%;
+  max-width: none;
   height: auto;
   display: block;
-  margin: 30px auto;
+  margin: 0;
   border-radius: 10px;
 }
 
@@ -296,3 +296,181 @@ footer {
   max-width: 550px;
   z-index: 1;
 }
+/* QUIZ */
+.quiz-page main {
+    padding-top: 100px; /* prevent header from hiding under navbar */
+}
+
+.quiz-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 30px;
+}
+
+.quiz-page .quiz-content {
+    display: grid;
+    grid-template-columns: 700px 500px;
+    gap: 20px;
+    max-width: 1500px;
+    margin: 60px auto 40px auto;
+    align-items: start;
+}
+
+.quiz-page .quiz-left {
+    max-width: 900px;
+}
+
+.quiz-page .quiz-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.quiz-page .quiz-header h2 {
+    font-size: 20px;
+    color: white;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.quiz-page .quiz-header p {
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+}
+
+.quiz-page .quiz-image {
+    display: block;
+    margin: 0 auto 30px auto;
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+.quiz-page .quiz-right {
+    background-color: #1e3d0e;
+    padding: 120px 40px 40px 40px; 
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.quiz-page .quiz-right h1 {
+    font-size: 32px;
+    color: white;
+    text-align: center;
+}
+
+.quiz-page .quiz-footer {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.quiz-page .big-arrow-back, .quiz-page .big-arrow-next {
+    background-color: #d4ff4a;
+    color: #1e3d0e;
+    padding: 20px 40px;
+    font-size: 28px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.quiz-page .big-arrow-back {
+    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);
+}
+
+.quiz-page .big-arrow-next {
+    clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
+}
+
+.quiz-page footer {
+    margin-top: auto;
+    width: 100%;
+}
+
+.quiz-page .checkerboardblackfirst {
+    width: 100%;
+    height: 40px;
+    background: repeating-linear-gradient(
+        90deg,
+        black 0 40px,
+        white 40px 80px
+    );
+}
+.quiz-page .quiz-answers {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.quiz-page .quiz-answers .btn {
+    font-size: 32px;
+    padding: 10px 30px;
+    font-family: "Tourney", sans-serif;
+}
+.quiz-page .quiz-question-container {
+    width: 100%;
+}
+.quiz-page .quiz-question-container h1 {
+    font-size: 32px;
+    color: white;
+    text-align: center;
+}
+.quiz-page #feedback {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.quiz-page #feedback {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.quiz-page #feedback .feedback-result {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.quiz-page #feedback .feedback-result.correct {
+    color: #c9f24d; /* Lime green for correct */
+}
+
+.quiz-page #feedback .feedback-result.wrong {
+    color: red;
+}
+
+.quiz-page #feedback .feedback-explanation {
+    font-size: 20px;
+    color: white;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+
+/* INTRO PARAGRAPH STYLE */
+.intro-paragraph {
+  font-size: 16px;  /* Smaller than regular paragraphs */
+  font-weight: 600;  /* More filled-in appearance */
+  line-height: 1.4;  /* Better readability */
+  color: #ffffff;    /* White text to match your theme */
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);  /* Makes text appear more solid */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Tourney", sans-serif;  /* Match your site font */
+}
+
+.learn-slide .text-columns .column .intro-paragraph {
+  font-size: 16px;  /* Override the 60px font size from .learn-slide p */
+}
+
