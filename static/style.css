@@ -297,32 +297,57 @@ footer {
   z-index: 1;
 }
 /* QUIZ */
-.quiz-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px;
-    color: white;
+.quiz-page main {
+    padding-top: 100px; /* prevent header from hiding under navbar */
 }
 
-.quiz-header {
-    text-align: center;
-    margin-bottom: 30px;
+.quiz-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.quiz-content {
+.quiz-page .quiz-content {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     gap: 40px;
     max-width: 1100px;
     margin: 0 auto 40px auto;
-}
-
-.quiz-left {
     flex: 1;
 }
 
-.quiz-right {
+.quiz-page .quiz-left {
+    flex: 1;
+}
+
+.quiz-page .quiz-header {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.quiz-page .quiz-header h2 {
+    font-size: 50px;
+    color: #d4ff4a;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.quiz-page .quiz-header p {
+    font-size: 24px;
+    color: white;
+}
+
+.quiz-page .quiz-image {
+    display: block;
+    margin: 0 auto 30px auto;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.quiz-page .quiz-right {
     flex: 1;
     background-color: #1e3d0e;
     padding: 40px;
@@ -332,36 +357,52 @@ footer {
     align-items: center;
 }
 
-.quiz-right h1 {
+.quiz-page .quiz-right h1 {
     font-size: 40px;
     color: white;
     text-align: center;
 }
 
-
-.quiz-footer {
+.quiz-page .quiz-footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
+    max-width: 1100px;
+    margin: 40px auto;
 }
 
-.big-arrow-back, .big-arrow-next {
+.quiz-page .big-arrow-back, .quiz-page .big-arrow-next {
     background-color: #d4ff4a;
     color: #1e3d0e;
     padding: 20px 40px;
-    font-size: 22px;
+    font-size: 28px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
 }
 
-.big-arrow-back {
+.quiz-page .big-arrow-back {
     clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);
 }
 
-.big-arrow-next {
+.quiz-page .big-arrow-next {
     clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
-} 
+}
+
+.quiz-page footer {
+    margin-top: auto;
+    width: 100%;
+}
+
+.quiz-page .checkerboardblackfirst {
+    width: 100%;
+    height: 40px;
+    background: repeating-linear-gradient(
+        90deg,
+        black 0 40px,
+        white 40px 80px
+    );
+}
+
 
 /* INTRO PARAGRAPH STYLE */
 .intro-paragraph {
