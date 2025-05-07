@@ -405,6 +405,16 @@ footer {
         white 40px 80px
     );
 }
+.quiz-page .quiz-answers {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.quiz-page .quiz-answers .btn {
+    font-size: 32px;
+    padding: 10px 30px;
+}
 
 
 /* INTRO PARAGRAPH STYLE */
