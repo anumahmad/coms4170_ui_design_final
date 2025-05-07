@@ -113,5 +113,16 @@ def quiz_result():
             score += 1
     return render_template("quiz_result.html", score=score, total=len(quiz_data))
 
+@app.route('/field')
+def field():
+    return render_template('field.html')
+
+@app.route('/game/<int:round_num>')
+def game(round_num):
+    if round_num not in [1, 2, 3]:
+        return redirect(url_for('game', round_num=1))
+    return render_template('field.html', round_num=round_num)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

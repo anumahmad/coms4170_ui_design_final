@@ -296,3 +296,97 @@ footer {
   max-width: 550px;
   z-index: 1;
 }
+
+
+#field-container {
+  position: relative;
+  width: 100%;
+  max-width: 1700px;
+  height: 800px;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: center;
+  border: 4px solid #fff;
+}
+
+
+/* .player.red {
+  position: relative; /* ⬅️ changed from absolute to relative */
+  /* width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  line-height: 40px;
+  cursor: grab;
+  z-index: 10;
+  margin: 0 auto; }/* center horizontally */
+
+
+
+.dropzone {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 10px solid yellow;
+  border-radius: 50%;
+  background-color: transparent;
+  z-index: 1;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+.dropzone {
+  transition: background-color 0.3s ease;
+}
+
+.drag-instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.drag-instructions p {
+  font-size: 1rem;
+  margin-top: 5px;
+  text-align: center;
+}
+
+
+
+#game-area {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+#field-container {
+  position: relative; /* important to align child absolute items */
+}
+
+.player.red {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+  z-index: 10;
+  cursor: grab;
+}
