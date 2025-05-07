@@ -2,16 +2,15 @@ const player = document.getElementById("draggable");
 const dropzones = document.querySelectorAll(".dropzone");
 const message = document.getElementById("message");
 const attemptDisplay = document.getElementById("attempt-count");
+const navButtons = document.getElementById("navigation-buttons");
 
 let initialTop, initialLeft;
 let attemptCount = 0;
 
-// Wait until DOM is fully ready to store accurate initial position
 window.addEventListener("DOMContentLoaded", () => {
   initialTop = player.style.top;
   initialLeft = player.style.left;
 
-  // Display initial attempt count
   if (attemptDisplay) {
     attemptDisplay.textContent = `Attempts: ${attemptCount}`;
   }
@@ -29,10 +28,8 @@ dropzones.forEach(zone => {
 
   zone.addEventListener("drop", e => {
     e.preventDefault();
-
     attemptCount++;
 
-    // Update visible attempt counter
     if (attemptDisplay) {
       attemptDisplay.textContent = `Attempts: ${attemptCount}`;
     }
@@ -49,9 +46,7 @@ dropzones.forEach(zone => {
       player.style.top = initialTop;
       player.style.left = initialLeft;
 
-      // Show countdown
-      let countdown = 3;
-      message.textContent = `✅ Onside! Moving to next round in ${countdown}...`;
+      message.textContent = "✅ Onside! You may now click Next to continue.";
 
       // Log attempts to server
       fetch("/log_attempts", {
@@ -65,23 +60,17 @@ dropzones.forEach(zone => {
         })
       });
 
-      const interval = setInterval(() => {
-        countdown--;
-        if (countdown > 0) {
-          message.textContent = `✅ Onside! Moving to next round in ${countdown}...`;
-        } else {
-          clearInterval(interval);
-          zone.style.backgroundColor = "transparent";
+      // Show Next/Back buttons
+    //   if (navButtons) {
+    //     navButtons.style.display = "block";
+    //   }
 
-          if (currentRound < 3) {
-            window.location.href = `/game/${currentRound + 1}`;
-          } else {
-            window.location.href = `/quiz_result`;
-          }
-        }
+      // Optional: remove zone highlight after short delay
+      setTimeout(() => {
+        zone.style.backgroundColor = "transparent";
       }, 1000);
+
     } else {
-      // Incorrect drop
       message.textContent = "❌ Offside! Try again.";
 
       setTimeout(() => {

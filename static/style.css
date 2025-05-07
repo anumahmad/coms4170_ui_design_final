@@ -167,7 +167,7 @@ nav a:hover {
 
 .match-image {
   margin: 30px 0;
-  max-width: 100%;
+  width: 150%;
   border-radius: 10px;
 }
 
@@ -256,9 +256,9 @@ footer {
 /* FADE EFFECTS ON IMAGES */
 .match-image {
   position: absolute;
-  top: 0;
+  margin-top: -70px;
   left: 0;
-  width: 100%;
+  width: 150%;
   border-radius: 10px;
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
