@@ -230,7 +230,7 @@
       hoverClass: "hover",
       drop: function(event, ui) {
         const $draggable = $(ui.draggable);
-        const isOffside = $draggable.data("is-offside") === "true";
+        const isOffside = $draggable.data("is-offside") === true || $draggable.data("is-offside") === "true";
         const dropZoneAnswer = $(this).data("answer") === true;
         const feedback = $draggable.data("feedback");
         
