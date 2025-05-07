@@ -186,13 +186,11 @@ nav a:hover {
 
 /* CHECKERBOARD FOOTER */
 footer {
-  width: 100%;
-  margin-top: 60px; /* gives some breathing room from content above */
+  margin-top: auto;
 }
 
 .checkerboardblackfirst {
   height: 40px;
-  width: 100%;
   background: repeating-linear-gradient(
       90deg,
       black 0 40px,
@@ -204,7 +202,6 @@ footer {
 
 .checkerboardwhitefirst {
   height: 40px;
-  width: 100%;
   background: repeating-linear-gradient(
       90deg,
       white 0 40px,
