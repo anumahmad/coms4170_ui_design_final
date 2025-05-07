@@ -69,13 +69,14 @@
     margin-bottom: 40px;
   }
   
-  .draggable-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    width: 100%;
-  }
+.draggable-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Slightly increased from 10px */
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px; /* Add margin below videos */
+}
   
   .scenario-image {
     width: 320px;            /* Increased width for field shape */
@@ -107,7 +108,7 @@
   margin-top: 20px;        /* Reduced from 30px */
   margin-bottom: 20px;     /* Added to reduce space below */
   flex-wrap: nowrap;
-  gap: 0px;                /* Removed gap completely */
+  gap: 5px;                /* Removed gap completely */
 }
 
   
@@ -115,7 +116,7 @@
   text-align: center;
   flex: 0 0 auto;          /* Changed from flex: 1 to prevent stretching */
   width: 45%;              /* Set explicit width instead of max-width */
-  margin: 0 5px;           /* Small margin for minimal spacing */
+  margin: 0 ;           /* Small margin for minimal spacing */
 }
   
 .drop-area {
@@ -147,7 +148,7 @@
   }
   
   .dropzone h2 {
-    font-size: 40px;
+    font-size: 50px;
     color: #e6ff57;
     margin: 0;
   }
@@ -193,7 +194,12 @@
   
   .incorrect {
     border-color: #f44336 !important;
-  }
+  } 
+
+  .feedback-container {
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
 </style>
 
 <script>
