@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+<main class="hero">
+  <p>Is it offside? (Round {{ round_num }})</p>
+
+  <div id="game-area">
+    <div class="drag-instructions">
+      <div class="player red" id="draggable" draggable="true">🔴</div>
+      <br><br><br><br>
+      <p class="btn">Drag me to a position you think is not offsides!</p>
+      <p id="attempt-count" style="color:white; font-weight:bold; margin-top: 10px;"></p>
+    </div>
+
+    {% set field_url = url_for('static', filename='images/field' ~ round_num ~ '.png') %}
+    <div id="field-container" style="background-image: url('{{ field_url }}');">
+
+      <!-- Dropzones -->
+      {% if round_num == 1 %}
+        <div class="dropzone" style="top: 14.07%; left: 6.73%;"></div>
+        <div class="dropzone" style="top: 51.18%; left: 19.71%;" data-correct="true"></div>
+        <div class="dropzone" style="top: 61.94%; left: 11.20%;"></div>
+        <div class="dropzone" style="top: 75.51%; left: 2.6%;"></div>
+      {% elif round_num == 2 %}
+        <div class="dropzone" style="top: 75%; left: 3%;"></div>
+        <div class="dropzone" style="top: 62%; left: 11.5%;"></div>
+        <div class="dropzone" style="top: 51%; left: 25.4%;" data-correct="true"></div>
+        <div class="dropzone" style="top: 57%; left: 34.2%;" data-correct="true"></div>
+      {% else %}
+        <div class="dropzone" style="top: 45%; left: 13%;"></div>
+        <div class="dropzone" style="top: 62%; left: 11.5%;" data-correct="true"></div>
+        <div class="dropzone" style="top: 57%; left: 33%;" data-correct="true"></div>
+        <div class="dropzone" style="top: 75.2%; left: 2.85%;" data-correct="true"></div>
+      {% endif %}
+
+      <div id="message"></div>
+
+      <!-- Navigation Buttons (hidden until correct) -->
+
+    </div>
+  </div>
+  <div id="navigation-buttons" style="margin-top: 20px;">
+    <button class="back-button" onclick="goBack()">Back</button>
+    <button class="next-button" onclick="goToRound({{ round_num + 1 }})">Next</button>
+  </div>
+</main>
+
+<script>
+  function goToRound(num) {
+    if (num > 3) {
+      window.location.href = "/quiz_result";
+    } else {
+      window.location.href = `/game/${num}`;
+    }
+  }
+
+  function goBack() {
+    const currentRound = {{ round_num }};
+    if (currentRound === 1) {
+      window.location.href = "/quiz/4";  // Go back to question 5
+    } else {
+      window.location.href = `/game/${currentRound - 1}`;
+    }
+  }
+</script>
+
+<script src="{{ url_for('static', filename='drag.js') }}"></script>
+{% endblock %}

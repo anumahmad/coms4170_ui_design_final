@@ -25,13 +25,13 @@
         <p id="feedback" style="margin-top: 20px;"></p>
 
         <!-- NEXT BUTTON here only (no duplicate) -->
-        <button id="nextBtn" class="big-arrow-next" style="display:none; margin-top: 20px;" onclick="goToNext({{ qnum }})">Next Question</button>
+        <button id="nextBtn" class="next-button"  onclick="goToNext({{ qnum + 1}})">Next Question</button>
     </div>
 </div>
 
 <div class="quiz-footer">
     {% if qnum > 0 %}
-    <button class="big-arrow-back" onclick="goToNext({{ qnum - 1 }})">Back</button>
+    <button class="back-button" onclick="goToNext({{ qnum - 1 }})">Back</button>
     {% endif %}
 </div>
 
