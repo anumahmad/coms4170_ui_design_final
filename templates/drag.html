@@ -106,7 +106,7 @@
     width: 100%;
     margin-top: 30px;
     flex-wrap: nowrap;      /* Changed from wrap to nowrap to prevent wrapping */
-    gap: 30px;              /* Added gap between the zones */
+    gap: 10px;              /* Added gap between the zones */
   }
   
   .dropzone {
@@ -220,13 +220,30 @@
         const dropZoneAnswer = $(this).data("answer") === true;
         const feedback = $draggable.data("feedback");
         
-        // Position the draggable in the center of the drop area
-        $draggable.detach().css({
-          top: 0,
-          left: 0,
-          position: 'relative',
-          margin: '10px'
-        }).appendTo(this);
+        // Position the draggable with overlapping effect in the drop area
+        const $dropArea = $(this);
+        const existingItems = $dropArea.children('.scenario-image').length;
+        const dropAreaWidth = $dropArea.width();
+        const dropAreaHeight = $dropArea.height();
+        
+        // Detach and add to drop area
+        $draggable.detach().appendTo($dropArea);
+        
+        // Calculate position with slight randomness for natural look
+        const randomLeftOffset = Math.random() * 100 - 50; // -50 to +50px
+        const randomTopOffset = Math.random() * 80 - 40;   // -40 to +40px
+        const randomRotation = Math.random() * 16 - 8;     // -8 to +8 degrees
+        
+        // Position in the center with offsets
+        $draggable.css({
+          position: 'absolute',
+          left: (dropAreaWidth / 2) - 120 + randomLeftOffset + 'px',
+          top: (dropAreaHeight / 2) - 71 + randomTopOffset + 'px',
+          margin: 0,
+          transform: `rotate(${randomRotation}deg)`,
+          transition: 'all 0.3s ease',
+          zIndex: 10 + existingItems
+        });
         
         // Make sure videos keep playing after being dropped
         $draggable.find('video').each(function() {
@@ -286,36 +303,9 @@
           ...data
         })
       });
-    } 
-
-          // Position the draggable with overlapping effect in the drop area
-        const $dropArea = $(this);
-        const existingItems = $dropArea.children('.scenario-image').length;
-        const dropAreaWidth = $dropArea.width();
-        const dropAreaHeight = $dropArea.height();
-        
-        // Detach and add to drop area
-        $draggable.detach().appendTo($dropArea);
-        
-        // Calculate position with slight randomness for natural look
-        const randomLeftOffset = Math.random() * 100 - 50; // -50 to +50px
-        const randomTopOffset = Math.random() * 80 - 40;   // -40 to +40px
-        const randomRotation = Math.random() * 16 - 8;     // -8 to +8 degrees
-        
-        // Position in the center with offsets
-        $draggable.css({
-          position: 'absolute',
-          left: (dropAreaWidth / 2) - 120 + randomLeftOffset + 'px',
-          top: (dropAreaHeight / 2) - 71 + randomTopOffset + 'px',
-          margin: 0,
-          transform: `rotate(${randomRotation}deg)`,
-          transition: 'all 0.3s ease',
-          zIndex: 10 + existingItems
-        });
+    }
     
     // Track when the page loads
     sendEvent("start_drag");
   });
 </script>
-
-{% endblock %}
