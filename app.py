@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+dfrom flask import Flask, render_template, request, jsonify, redirect, url_for, session
 
 import logging
 
@@ -41,7 +41,7 @@ quiz_data = [
         "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
     },
     {
-        "Section 2: Offside from a Real Match - Yes or No",
+        "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_27_img_1.jpeg",
         "question": "Offside?",
         "correct": "no",
