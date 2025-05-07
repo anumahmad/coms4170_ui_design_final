@@ -186,7 +186,8 @@ nav a:hover {
 
 /* CHECKERBOARD FOOTER */
 footer {
-  margin-top: auto;
+  width: 100%;
+  margin-top: 60px; /* gives some breathing room from content above */
 }
 
 .checkerboardblackfirst {
