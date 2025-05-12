@@ -648,4 +648,10 @@ footer {
   margin-top: 40px;
   text-decoration: none;
 }
+.fixed-back-button {
+  position: fixed;
+  bottom: 80px; /* lift it above the checkerboard */
+  left: 40px;   /* place it near the left edge */
+  z-index: 10;  /* stay above other content */
+}
 
