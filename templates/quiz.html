@@ -30,10 +30,11 @@
 </div>
 
 <div class="quiz-footer">
-    {% if qnum > 0 %}
-    <button class="back-button" onclick="goToNext({{ qnum - 1 }})">Back</button>
-    {% endif %}
+  {% if qnum > 0 %}
+    <button class="back-button fixed-back-button" onclick="goToNext({{ qnum - 1 }})">Back</button>
+  {% endif %}
 </div>
+
 
 <footer>
     <div class="checkerboardblackfirst"></div>
