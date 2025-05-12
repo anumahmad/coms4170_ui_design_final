@@ -112,7 +112,7 @@ quiz_data = [
         "image": "pdf_images/question0.png",
         "question": "Is this an offsides play?",
         "correct": "yes",
-        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+        "feedback": "This is an offsides play because the player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
 
     },
     {
@@ -120,7 +120,7 @@ quiz_data = [
         "image": "pdf_images/question1.png",
         "question": "Is this an offsides play?",
         "correct": "yes",
-        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+        "feedback": "This is an offsides play because the player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
 
     },
     {
@@ -128,14 +128,14 @@ quiz_data = [
         "image": "pdf_images/question2.png",
         "question": "Is this an offsides play?",
         "correct": "no",
-        "feedback": "The player in question is in their own half! They are onside."
+        "feedback": "This is an onsides play because the player in question is in their own half! Remember: a play can only be offsides if the offensive team is NOT in their own half at the time of the pass."
     },
     {
         "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_24_img_1.jpeg",
         "question": "Is this an offsides play?",
         "correct": "yes",
-        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+        "feedback": "This is an offsides play because the player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
     },
     {
         "header": "Section 2: Offside from a Real Match - Yes or No",
