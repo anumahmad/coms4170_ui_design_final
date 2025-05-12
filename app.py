@@ -141,8 +141,8 @@ quiz_data = [
         "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_27_img_1.jpeg",
         "question": "Is this an offsides play?",
-        "correct": "no",
-        "feedback": "The player in question is NOT closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them! They are onside."
+        "correct": "yes",
+        "feedback": "This is a tricky one! This is an offsides play because the last offensive player is just slightly ahead of the second-to-last defender (player #6). Make sure to keep your eye out for the tricky ones!"
     },
 ]
 
