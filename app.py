@@ -273,6 +273,13 @@ def quiz_result():
 def field():
     return render_template('field.html')
 
+@app.route("/restart_quiz")
+def restart_quiz():
+    global user_answers
+    user_answers.clear()  # clears stored quiz answers
+    return redirect(url_for('quiz', num=0))
+
+
 @app.route('/game/<int:round_num>')
 def game(round_num):
     if round_num not in [1, 2, 3]:
