@@ -599,6 +599,7 @@ footer {
   margin: 0 auto;
   padding: 40px;
   text-align: center;
+  font-weight: 900;
 }
 
 .quiz-summary {
