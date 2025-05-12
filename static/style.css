@@ -553,7 +553,7 @@ footer {
 }
 
 .quiz-page #feedback .feedback-result.wrong {
-    color: red;
+    color: C33149;
 }
 
 .quiz-page #feedback .feedback-explanation {
@@ -633,7 +633,7 @@ footer {
 }
 
 .wrong {
-  color: red;
+  color: C33149;
   font-weight: bold;
 }
 
