@@ -238,23 +238,32 @@ def drag():
 @app.route("/quiz_result")
 def quiz_result():
     score = 0
-    results = []  # ⬅️ new list to store per-question info
+    results = []
 
-    for i, answer in enumerate(user_answers):
+    for i in range(len(quiz_data)):
         correct_answer = quiz_data[i]["correct"]
-        is_correct = (answer == correct_answer)
-        feedback = quiz_data[i]["feedback"]
         question_text = quiz_data[i]["question"]
+        feedback = quiz_data[i]["feedback"]
+
+        # Get user's answer if it exists; otherwise mark as "No answer"
+        if i < len(user_answers):
+            user_answer = user_answers[i]
+        else:
+            user_answer = "No answer"
+
+        is_correct = (user_answer == correct_answer)
+
+        if is_correct:
+            score += 1
+
         results.append({
             "number": i + 1,
             "question": question_text,
-            "your_answer": answer,
+            "your_answer": user_answer,
             "correct_answer": correct_answer,
             "is_correct": is_correct,
             "feedback": feedback
         })
-        if is_correct:
-            score += 1
 
     game_attempts = session.get("game_attempts", {})
     session.clear()
@@ -264,7 +273,7 @@ def quiz_result():
         score=score,
         total=len(quiz_data),
         game_attempts=game_attempts,
-        results=results  # ⬅️ pass the list
+        results=results
     )
 
 
