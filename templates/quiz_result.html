@@ -1,42 +1,64 @@
 {% extends "layout.html" %}
 {% block content %}
-<br>
-<br>
-<br>
-<br>
 
-<h1>Quiz Complete!</h1>
-<h2>You scored {{ score }} out of {{ total }}.</h2>
+<div class="quiz-result-page">
+  <br><br><br><br>
 
-<h2>Question Summary</h2>
-<ul>
-  {% for result in results %}
-    <p style="margin-bottom: 1em;">
-      <strong>Question {{ result.number }}:</strong> {{ result.question }}<br>
-      ✅ Correct answer: <strong>{{ result.correct_answer|capitalize }}</strong><br>
-      🧠 Your answer: <strong>{{ result.your_answer|capitalize }}</strong><br>
-      {% if result.is_correct %}
-        <span style="color: green;">✅ You got it right!</span>
-      {% else %}
-        <span style="color: red;">❌ You got it wrong.</span>
-      {% endif %}
-      <br>
-      <em>{{ result.feedback }}</em>
-    </p>
-  {% endfor %}
-</ul>
+  <h1>Quiz Complete!</h1>
+  <h2>You scored {{ score }} out of {{ total }}.</h2>
 
+  <h2>Question Summary</h2>
+  <table class="quiz-summary">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Question</th>
+        <th>Correct Answer</th>
+        <th>Your Answer</th>
+        <th>Result</th>
+        <th>Feedback</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result.number }}</td>
+        <td>{{ result.question }}</td>
+        <td>{{ result.correct_answer|capitalize }}</td>
+        <td>{{ result.your_answer|capitalize }}</td>
+        <td>
+          {% if result.is_correct %}
+            <span class="correct">✅ Correct</span>
+          {% else %}
+            <span class="wrong">❌ Wrong</span>
+          {% endif %}
+        </td>
+        <td><em>{{ result.feedback }}</em></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-<h2>Game Round Attempts</h2>
-<ul>
-  {% for round, tries in game_attempts.items() %}
-    <p>Round {{ round }}: {{ tries }} attempt{{ 's' if tries != 1 else '' }}</p>
-  {% endfor %}
-</ul>
+  <h2>Drag & Drop Summary</h2>
+<table class="quiz-summary">
+  <thead>
+    <tr>
+      <th>Round</th>
+      <th>Attempts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for round, tries in game_attempts.items() %}
+      <tr>
+        <td>{{ round }}</td>
+        <td>{{ tries }} attempt{{ 's' if tries != 1 else '' }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-<h1><a style= "color:white" href="{{ url_for('quiz', num=0) }}">Try Again</a></h1>
+  <a class="btn try-again" href="{{ url_for('restart_quiz', num=0) }}">🔁 Try Again</a>
+</div>
 
-
-
- 
 {% endblock %}
+

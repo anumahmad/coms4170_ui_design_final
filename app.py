@@ -112,7 +112,7 @@ quiz_data = [
         "image": "pdf_images/question0.png",
         "question": "Is this an offsides play?",
         "correct": "yes",
-        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+        "feedback": "This is an offsides play because the player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
 
     },
     {
@@ -120,7 +120,7 @@ quiz_data = [
         "image": "pdf_images/question1.png",
         "question": "Is this an offsides play?",
         "correct": "yes",
-        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+        "feedback": "This is an offsides play because the player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
 
     },
     {
@@ -128,25 +128,25 @@ quiz_data = [
         "image": "pdf_images/question2.png",
         "question": "Is this an offsides play?",
         "correct": "no",
-        "feedback": "The player in question is in their own half! They are onside."
+        "feedback": "This is an onsides play because the player in question is in their own half! Remember: a play can only be offsides if the offensive team is NOT in their own half at the time of the pass."
     },
     {
         "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_24_img_1.jpeg",
         "question": "Is this an offsides play?",
         "correct": "yes",
-        "feedback": "The player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
+        "feedback": "This is an offsides play because the player in question is closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them!"
     },
     {
         "header": "Section 2: Offside from a Real Match - Yes or No",
         "image": "pdf_images/page_27_img_1.jpeg",
         "question": "Is this an offsides play?",
-        "correct": "no",
-        "feedback": "The player in question is NOT closer to the opponent’s goal line than both the ball and the second-last defender at the moment the ball is played to them! They are onside."
+        "correct": "yes",
+        "feedback": "This is a tricky one! This is an offsides play because the last offensive player is just slightly ahead of the second-to-last defender (player #6). Make sure to keep your eye out for the tricky ones!"
     },
 ]
 
-user_answers = [] 
+user_answers = {} 
         
 @app.route("/")
 def index():
@@ -194,10 +194,7 @@ def submit_answer():
     feedback = quiz_data[qnum]["feedback"]
     is_correct = (answer == correct)
 
-    if len(user_answers) <= qnum:
-        user_answers.append(answer)
-    else:
-        user_answers[qnum] = answer
+    user_answers[qnum] = answer  # <- stores answer by index
 
     return jsonify({
         "correct": is_correct,
@@ -238,23 +235,27 @@ def drag():
 @app.route("/quiz_result")
 def quiz_result():
     score = 0
-    results = []  # ⬅️ new list to store per-question info
+    results = []
 
-    for i, answer in enumerate(user_answers):
+    for i in range(len(quiz_data)):
         correct_answer = quiz_data[i]["correct"]
-        is_correct = (answer == correct_answer)
-        feedback = quiz_data[i]["feedback"]
         question_text = quiz_data[i]["question"]
+        feedback = quiz_data[i]["feedback"]
+
+        user_answer = user_answers.get(i, "No answer")  # fetch safely
+
+        is_correct = (user_answer == correct_answer)
+        if is_correct:
+            score += 1
+
         results.append({
             "number": i + 1,
             "question": question_text,
-            "your_answer": answer,
+            "your_answer": user_answer,
             "correct_answer": correct_answer,
             "is_correct": is_correct,
             "feedback": feedback
         })
-        if is_correct:
-            score += 1
 
     game_attempts = session.get("game_attempts", {})
     session.clear()
@@ -264,13 +265,20 @@ def quiz_result():
         score=score,
         total=len(quiz_data),
         game_attempts=game_attempts,
-        results=results  # ⬅️ pass the list
+        results=results
     )
 
 
 @app.route('/field')
 def field():
     return render_template('field.html')
+
+@app.route("/restart_quiz")
+def restart_quiz():
+    global user_answers
+    user_answers.clear()  # clears stored quiz answers
+    return redirect(url_for('quiz', num=0))
+
 
 @app.route('/game/<int:round_num>')
 def game(round_num):
