@@ -146,7 +146,7 @@ quiz_data = [
     },
 ]
 
-user_answers = [] 
+user_answers = {} 
         
 @app.route("/")
 def index():
@@ -194,10 +194,7 @@ def submit_answer():
     feedback = quiz_data[qnum]["feedback"]
     is_correct = (answer == correct)
 
-    if len(user_answers) <= qnum:
-        user_answers.append(answer)
-    else:
-        user_answers[qnum] = answer
+    user_answers[qnum] = answer  # <- now stores by question number
 
     return jsonify({
         "correct": is_correct,
@@ -245,14 +242,9 @@ def quiz_result():
         question_text = quiz_data[i]["question"]
         feedback = quiz_data[i]["feedback"]
 
-        # Get user's answer if it exists; otherwise mark as "No answer"
-        if i < len(user_answers):
-            user_answer = user_answers[i]
-        else:
-            user_answer = "No answer"
+        user_answer = user_answers.get(i, "No answer")  # fetch safely
 
         is_correct = (user_answer == correct_answer)
-
         if is_correct:
             score += 1
 
