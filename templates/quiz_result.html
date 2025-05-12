@@ -39,12 +39,23 @@
     </tbody>
   </table>
 
-  <h2>Game Round Attempts</h2>
-  <ul>
+  <h2>Drag & Drop Summary</h2>
+<table class="quiz-summary">
+  <thead>
+    <tr>
+      <th>Round</th>
+      <th>Attempts</th>
+    </tr>
+  </thead>
+  <tbody>
     {% for round, tries in game_attempts.items() %}
-      <li>Round {{ round }}: {{ tries }} attempt{{ 's' if tries != 1 else '' }}</li>
+      <tr>
+        <td>{{ round }}</td>
+        <td>{{ tries }} attempt{{ 's' if tries != 1 else '' }}</td>
+      </tr>
     {% endfor %}
-  </ul>
+  </tbody>
+</table>
 
   <a class="btn try-again" href="{{ url_for('quiz', num=0) }}">🔁 Try Again</a>
 </div>
