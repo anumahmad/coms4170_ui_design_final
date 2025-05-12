@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 <main class="hero">
-  <p>Is it offside? (Round {{ round_num }})</p>
+  <p style="margin-top: 0px; margin-bottom: 5px;">Is it offside? (Round {{ round_num }})</p>
 
   <div id="game-area">
     <div class="drag-instructions">
-      <div class="player red" id="draggable" draggable="true">🔴</div>
-      <br><br><br><br>
-      <p class="btn">Drag me to a position you think is not offsides!</p>
+<div class="drag-row">
+  <div class="player red" id="draggable" draggable="true">🔴</div>
+  <p class="btn">Drag me to a position you think is not offsides!</p>
+</div>
       <p id="attempt-count" style="color:white; font-weight:bold; margin-top: 10px;"></p>
     </div>
 
@@ -16,10 +17,10 @@
 
       <!-- Dropzones -->
       {% if round_num == 1 %}
-        <div class="dropzone" style="top: 14.07%; left: 6.73%;"></div>
-        <div class="dropzone" style="top: 51.18%; left: 19.71%;" data-correct="true"></div>
-        <div class="dropzone" style="top: 61.94%; left: 11.20%;"></div>
-        <div class="dropzone" style="top: 75.51%; left: 2.6%;"></div>
+<div class="dropzone" style="top: 11.07%; left: 7.5%; background-color: transparent;"></div>
+<div class="dropzone" style="top: 50.6%; left: 20.2%;" data-correct="true"></div>
+<div class="dropzone" style="top: 62.3%; left: 12.0%;"></div>
+<div class="dropzone" style="top: 76.91%; left: 3.6%;"></div>
       {% elif round_num == 2 %}
         <div class="dropzone" style="top: 75%; left: 3%;"></div>
         <div class="dropzone" style="top: 62%; left: 11.5%;"></div>
