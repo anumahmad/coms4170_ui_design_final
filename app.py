@@ -189,16 +189,12 @@ def submit_answer():
     data = request.get_json()
     answer = data["answer"]
     qnum = data["question_number"]
-
+    
     correct = quiz_data[qnum]["correct"]
     feedback = quiz_data[qnum]["feedback"]
     is_correct = (answer == correct)
 
-    # Ensure the list is long enough
-    while len(user_answers) <= qnum:
-        user_answers.append("No answer")
-
-    user_answers[qnum] = answer
+    user_answers[qnum] = answer  # <- stores answer by index
 
     return jsonify({
         "correct": is_correct,
