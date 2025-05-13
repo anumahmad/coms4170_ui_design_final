@@ -549,11 +549,11 @@ footer {
 }
 
 .quiz-page #feedback .feedback-result.correct {
-    color: #c9f24d; /* Lime green for correct */
+    color: #1fe11f; /* Lime green for correct */
 }
 
 .quiz-page #feedback .feedback-result.wrong {
-    color: #C33149;
+    color: #ff1717;
 }
 
 .quiz-page #feedback .feedback-explanation {
@@ -628,12 +628,12 @@ footer {
 }
 
 .correct {
-  color: #c9f24dff;
+  color: #1fe11f;
   font-weight: bold;
 }
 
 .wrong {
-  color: #C33149;
+  color: #ff1717;
   font-weight: bold;
 }
 
